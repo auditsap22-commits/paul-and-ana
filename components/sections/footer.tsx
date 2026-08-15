@@ -154,10 +154,11 @@ export function Footer() {
   const year = new Date().getFullYear()
   const ceremonyDate = siteConfig.ceremony.date
   const ceremonyTime = siteConfig.ceremony.time
-  const ceremonyVenue = siteConfig.wedding.venue
+  const ceremonyVenue = siteConfig.ceremony.location
+  const ceremonyAddress = siteConfig.ceremony.venue
   const receptionVenue = siteConfig.reception.location
-  const ceremonyAddress = siteConfig.wedding.venue
   const receptionAddress = siteConfig.reception.venue
+  const receptionTime = siteConfig.reception.time
 
   const groomName = siteConfig.couple.groomNickname || siteConfig.couple.groom
   const brideName = siteConfig.couple.brideNickname || siteConfig.couple.bride
@@ -363,36 +364,36 @@ export function Footer() {
 
             {/* Event details — ceremony and reception always separate */}
             <motion.div className="space-y-4 sm:space-y-5 min-w-0" variants={fadeInUp}>
-              {/* <FooterCard>
+              <FooterCard>
                 <h4
                   className={`${cinzel.className} ${ct.cardTitle} font-semibold mb-3`}
                   style={{ color: palette.heading }}
                 >
-                  Ceremony 
+                  Ceremony
                 </h4>
                 <div className="space-y-3">
-                  <DetailRow label="Venue" value={toTitleCase(ceremonyVenue)} />
+                  <DetailRow label="Venue" value={ceremonyVenue} />
                   {ceremonyAddress && ceremonyAddress !== ceremonyVenue && (
-                    <DetailRow label="Address" value={toTitleCase(ceremonyAddress)} />
+                    <DetailRow label="Address" value={ceremonyAddress} />
                   )}
-                  <DetailRow label="Time" value={ceremonyTime} />
+                  <DetailRow label="Assembly Time" value={siteConfig.ceremony.guestsTime} />
+                  <DetailRow label="Wedding Starts" value={ceremonyTime} />
                 </div>
-              </FooterCard> */}
+              </FooterCard>
 
               <FooterCard>
                 <h4
                   className={`${cinzel.className} ${ct.cardTitle} font-semibold mb-3`}
                   style={{ color: palette.heading }}
                 >
-                  Ceremony &Reception
+                  Reception
                 </h4>
                 <div className="space-y-3">
-                  <DetailRow label="Venue" value={siteConfig.ceremony.location} />
+                  <DetailRow label="Venue" value={receptionVenue} />
                   {receptionAddress && receptionAddress !== receptionVenue && (
-                    <DetailRow label="Address" value={siteConfig.ceremony.venue} />
+                    <DetailRow label="Address" value={receptionAddress} />
                   )}
-                  <DetailRow label="Assembly Time" value={siteConfig.ceremony.guestsTime} />
-                  <DetailRow label="Wedding Starts:" value={ceremonyTime} />
+                  <DetailRow label="Time" value={receptionTime} />
                 </div>
               </FooterCard>
 

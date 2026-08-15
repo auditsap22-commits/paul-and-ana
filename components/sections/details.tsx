@@ -706,12 +706,12 @@ function EventVenueCard({
                 >
                   Arrival: {arrivalTime}
                 </p>
-                {/* <p
+                <p
                   className={`${cinzel.className} text-sm sm:text-base md:text-lg lg:text-xl font-semibold tracking-[0.1em] uppercase`}
                   style={{ color: detailText.heading }}
                 >
                   Wedding Starts: {time}
-                </p> */}
+                </p>
               </div>
             ) : (
               <p
@@ -993,9 +993,9 @@ export function Details() {
           dateString={siteConfig.ceremony.date}
           time={siteConfig.ceremony.time}
           arrivalTime={siteConfig.ceremony.guestsTime}
-          venueSectionLabel="Ceremony & Reception"
+          venueSectionLabel="Ceremony Venue"
           mapsLink={ceremonyMapsLink}
-          copyId="ceremony & reception"
+          copyId="ceremony"
           fullVenue={ceremonyVenue}
           copiedItems={copiedItems}
           onCopy={copyToClipboard}
@@ -1012,7 +1012,6 @@ export function Details() {
           day={siteConfig.reception.day}
           dateString={siteConfig.reception.date}
           time={siteConfig.reception.time}
-          showDateDetails={false}
           venueSectionLabel="Reception Venue"
           mapsLink={receptionMapsLink}
           copyId="reception"
