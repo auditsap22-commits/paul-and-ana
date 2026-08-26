@@ -22,6 +22,7 @@ import { LoveStory } from "@/components/sections/love-story"
 import { WeddingPlaylist } from "@/components/sections/wedding-playlist"
 import { Hero as InvitationHero } from "@/components/loader/Hero"
 import { LoadingScreen } from "@/components/loader/LoadingScreen"
+import { InvitePhotoBackdrop } from "@/components/loader/invite-photo-backdrop"
 import { Navbar } from "@/components/navbar"
 import { AppState } from "@/components/types"
 import { SnapShare } from "@/components/sections/snap-share"
@@ -32,6 +33,7 @@ const Silk = dynamic(() => import("@/components/silk"), { ssr: false })
 const GuestList = dynamic(() => import("@/components/sections/guest-list").then(mod => ({ default: mod.GuestList })), { ssr: false })
 
 const mainEntryEase = [0.22, 1, 0.36, 1] as const
+const CINEMATIC_ENTRY_MS = 3000
 
 const detailsShellVariants = {
   hidden: { opacity: 0 },
@@ -46,7 +48,7 @@ const silkBackdropVariants = {
   show: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 1.35, ease: mainEntryEase, delay: 0.28 },
+    transition: { duration: 1.45, ease: mainEntryEase, delay: 0.42 },
   },
 }
 
@@ -55,7 +57,7 @@ const navbarRevealVariants = {
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.78, ease: mainEntryEase, delay: 0.52 },
+    transition: { duration: 0.88, ease: mainEntryEase, delay: 0.72 },
   },
 }
 
@@ -66,7 +68,7 @@ const heroRevealVariants = {
     y: 0,
     scale: 1,
     filter: "blur(0px)",
-    transition: { duration: 1.18, ease: mainEntryEase, delay: 0.4 },
+    transition: { duration: 1.28, ease: mainEntryEase, delay: 0.58 },
   },
 }
 
@@ -76,7 +78,7 @@ const sectionsRevealVariants = {
     opacity: 1,
     y: 0,
     filter: "blur(0px)",
-    transition: { duration: 1.02, ease: mainEntryEase, delay: 0.68 },
+    transition: { duration: 1.08, ease: mainEntryEase, delay: 0.86 },
   },
 }
 
@@ -133,8 +135,8 @@ export default function Home() {
 
   const handleOpenInvitation = useCallback(() => {
     setShowInvitation(false)
-    setEnteringFromInvite(false)
     window.scrollTo({ top: 0, behavior: "smooth" })
+    window.setTimeout(() => setEnteringFromInvite(false), CINEMATIC_ENTRY_MS)
   }, [])
 
   const detailsVisible = appState === AppState.DETAILS
@@ -143,6 +145,24 @@ export default function Home() {
 
   return (
       <div className={`relative min-h-screen bg-cloud text-charcoal selection:bg-birch selection:text-nut font-sans ${pageScrollLocked ? "overflow-hidden" : ""}`}>
+        {(loadingOverlayVisible || showInvitation || enteringFromInvite) && (
+          <motion.div
+            className="invite-photo-backdrop-wrap"
+            aria-hidden="true"
+            initial={false}
+            animate={{
+              opacity: loadingOverlayVisible || showInvitation ? 1 : 0,
+            }}
+            transition={{
+              duration: 1.15,
+              ease: mainEntryEase,
+              delay: showInvitation || loadingOverlayVisible ? 0 : 0.4,
+            }}
+          >
+            <InvitePhotoBackdrop className="invite-photo-backdrop--page" />
+          </motion.div>
+        )}
+
         {loadingOverlayVisible && (
           <LoadingScreen
             onFadeStart={handleLoadingFadeStart}
@@ -170,9 +190,9 @@ export default function Home() {
               <motion.div
                 className="fixed inset-0 z-[28] pointer-events-none bg-[#faf7f1]"
                 aria-hidden="true"
-                initial={{ clipPath: "circle(0% at 50% 38%)", opacity: 0.95 }}
-                animate={{ clipPath: "circle(145% at 50% 38%)", opacity: 0 }}
-                transition={{ duration: 1.45, delay: 0.34, ease: mainEntryEase }}
+                initial={{ clipPath: "circle(0% at 50% 46%)", opacity: 0.98 }}
+                animate={{ clipPath: "circle(145% at 50% 46%)", opacity: 0 }}
+                transition={{ duration: 1.55, delay: 0.12, ease: mainEntryEase }}
               />
             )}
 

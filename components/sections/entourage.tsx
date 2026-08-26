@@ -3,7 +3,7 @@
 import React from "react"
 import { useState, useEffect, useMemo, useRef } from "react"
 import localFont from "next/font/local"
-import { useSiteConfig } from "@/hooks/use-site-config"
+import { Section } from "@/components/section"
 import { layeredSectionTitleSize, sectionType } from "@/lib/section-typography"
 import { Cinzel } from "next/font/google"
 
@@ -24,9 +24,6 @@ const aboveTheBeyond = localFont({
   variable: "--font-above-beyond",
 })
 
-const CORNER_DECO_CLASS =
-  "block h-auto w-auto max-w-[88px] sm:max-w-[108px] md:max-w-[124px] lg:max-w-[140px]"
-
 const C = {
   forest: "#5d6f47",
   sage: "#949981",
@@ -35,7 +32,7 @@ const C = {
   cream: "#f7f3e9",
 } as const
 
-const creamWash = `
+const sectionBackground = `
   radial-gradient(920px 520px at 50% 8%, color-mix(in srgb, ${C.butter} 35%, transparent) 0%, transparent 55%),
   radial-gradient(640px 420px at 12% 88%, color-mix(in srgb, ${C.sage} 16%, transparent) 0%, transparent 58%),
   radial-gradient(560px 380px at 92% 78%, color-mix(in srgb, ${C.mustard} 14%, transparent) 0%, transparent 55%),
@@ -59,6 +56,13 @@ const dividerLineStyle = {
     "linear-gradient(to right, transparent, rgba(255, 255, 255, 0.45), transparent)",
 } as const
 
+const SECTION_TITLE_CLASS = `${cinzel.className} ${sectionType.label} lg:text-base tracking-[0.1em] sm:tracking-[0.14em] md:tracking-[0.16em] uppercase font-semibold leading-tight`
+
+const nameStyle: React.CSSProperties = {
+  fontSize: "clamp(0.8125rem, min(2.85vw, 10cqi), 1.25rem)",
+  lineHeight: 1.35,
+}
+
 function CoupleRingsMark() {
   return (
     <div className="-mt-3 mb-4 flex justify-center sm:-mt-4 sm:mb-5 md:-mt-5 md:mb-6">
@@ -74,50 +78,6 @@ function CoupleRingsMark() {
           WebkitMaskRepeat: "no-repeat",
           maskPosition: "center",
           WebkitMaskPosition: "center",
-        }}
-        aria-hidden
-      />
-    </div>
-  )
-}
-
-const nameStyle: React.CSSProperties = {
-  fontSize: "clamp(0.75rem, min(2.55vw, 9cqi), 1.125rem)",
-  lineHeight: 1.3,
-}
-
-function EntourageCoupleLabel({ groom, bride }: { groom: string; bride: string }) {
-  const lineStyle = {
-    background:
-      "linear-gradient(to right, transparent, color-mix(in srgb, var(--color-welcome-navy) 35%, transparent))",
-  }
-
-  return (
-    <div className="flex items-center justify-center gap-2.5 sm:gap-3.5 mt-8 sm:mt-10 md:mt-12">
-      <span className="h-px w-5 sm:w-7 md:w-9" style={lineStyle} aria-hidden />
-      <p
-        className={`${cinzel.className} ${sectionType.label} shrink-0 py-0.5 font-semibold uppercase leading-normal tracking-[0.34em] min-[400px]:tracking-[0.38em] sm:tracking-[0.44em]`}
-        style={{ color: "var(--color-welcome-navy)" }}
-      >
-        With {groom}
-        <span
-          className={`${aboveTheBeyond.className} mx-1.5 inline-block normal-case tracking-normal sm:mx-2`}
-          style={{
-            fontSize: "1.35em",
-            color: "var(--color-welcome-green)",
-            verticalAlign: "middle",
-          }}
-          aria-hidden
-        >
-          &
-        </span>
-        {bride}
-      </p>
-      <span
-        className="h-px w-5 sm:w-7 md:w-9"
-        style={{
-          background:
-            "linear-gradient(to left, transparent, color-mix(in srgb, var(--color-welcome-navy) 35%, transparent))",
         }}
         aria-hidden
       />
@@ -194,7 +154,6 @@ function principalSponsorFromApi(row: Record<string, unknown>): PrincipalSponsor
 const ct = {
   label: sectionType.label,
   sectionTitle: `${sectionType.label} lg:text-base`,
-  role: "text-[11px] sm:text-xs md:text-sm",
   body: sectionType.text,
   bodyLg: sectionType.subheader,
 } as const
@@ -242,8 +201,6 @@ const HONOR_ATTENDANT_BLOCK_CATEGORIES = [
   "Maid of Honor",
 ] as const
 
-const HIDDEN_ROLE_CATEGORIES = new Set<string>([])
-
 function normalizeRoleCategory(category: string): string {
   const normalized = category.trim()
   if (normalized.toLowerCase() === "officiating minister") {
@@ -269,8 +226,33 @@ function normalizeRoleCategory(category: string): string {
   return normalized
 }
 
+const HIDDEN_ROLE_CATEGORIES = new Set<string>(["The Couple"])
+
+function isCoupleMember(member: EntourageMember): boolean {
+  return normalizeRoleCategory(member.roleCategory) === "The Couple"
+}
+
+function sortGroomParents(members: EntourageMember[]): EntourageMember[] {
+  return [...members].sort((a, b) => {
+    const aIsFather = a.roleTitle?.toLowerCase().includes("father") ?? false
+    const bIsFather = b.roleTitle?.toLowerCase().includes("father") ?? false
+    if (aIsFather && !bIsFather) return -1
+    if (!aIsFather && bIsFather) return 1
+    return 0
+  })
+}
+
+function sortBrideParents(members: EntourageMember[]): EntourageMember[] {
+  return [...members].sort((a, b) => {
+    const aIsMother = a.roleTitle?.toLowerCase().includes("mother") ?? false
+    const bIsMother = b.roleTitle?.toLowerCase().includes("mother") ?? false
+    if (aIsMother && !bIsMother) return -1
+    if (!aIsMother && bIsMother) return 1
+    return 0
+  })
+}
+
 export function Entourage() {
-  const siteConfig = useSiteConfig()
   const [entourage, setEntourage] = useState<EntourageMember[]>([])
   const [sponsors, setSponsors] = useState<PrincipalSponsor[]>([])
   const [isLoading, setIsLoading] = useState(true)
@@ -290,6 +272,7 @@ export function Entourage() {
         data
           .map((row) => entourageMemberFromApi(row as Record<string, unknown>))
           .filter((member) => member.name.trim())
+          .filter((member) => !isCoupleMember(member))
       )
     } catch (err: unknown) {
       console.error("Failed to load entourage:", err)
@@ -396,7 +379,7 @@ export function Entourage() {
       align === "right" ? "text-right" : align === "left" ? "text-left" : "text-center"
     return (
       <h3
-        className={`relative ${cinzel.className} ${ct.sectionTitle} tracking-[0.1em] sm:tracking-[0.14em] md:tracking-[0.16em] uppercase mb-1.5 sm:mb-2 md:mb-2.5 ${textAlign} ${className} transition-all duration-300 whitespace-nowrap font-semibold leading-tight`}
+        className={`relative ${SECTION_TITLE_CLASS} mb-1.5 sm:mb-2 md:mb-2.5 ${textAlign} ${className} transition-all duration-300 whitespace-nowrap`}
         style={{ color: palette.heading }}
       >
         {children}
@@ -436,8 +419,8 @@ export function Entourage() {
         </p>
         {showRole && member.roleTitle && (
           <p
-            className={`relative ${ct.role} font-medium mt-0.5 leading-tight ${textAlign} tracking-wide uppercase transition-colors duration-300 whitespace-nowrap max-w-full overflow-hidden text-ellipsis`}
-            style={{ color: palette.label }}
+            className={`relative ${SECTION_TITLE_CLASS} mt-0.5 ${textAlign} transition-colors duration-300 whitespace-nowrap max-w-full overflow-hidden text-ellipsis`}
+            style={{ color: palette.heading }}
             title={member.roleTitle}
           >
             {member.roleTitle}
@@ -491,55 +474,16 @@ export function Entourage() {
 
   return (
     <div
+      ref={sectionRef}
       className={`${theSeasons.variable} ${aboveTheBeyond.variable} relative w-full`}
-      style={{ background: creamWash }}
+      style={{ background: sectionBackground }}
     >
-      <section
-        ref={sectionRef}
+      <Section
         id="entourage"
         className="relative z-10 overflow-hidden pt-8 pb-8 sm:pt-10 sm:pb-10 md:pt-12 md:pb-12 lg:pt-14 lg:pb-14"
       >
-        {/* Corner decorations */}
-        <div className="pointer-events-none absolute left-0 top-0 z-10">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/decoration/left-top-corner.png"
-            alt=""
-            className={CORNER_DECO_CLASS}
-          />
-        </div>
-        <div className="pointer-events-none absolute right-0 top-0 z-10">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/decoration/right-top-corner.png"
-            alt=""
-            className={CORNER_DECO_CLASS}
-          />
-        </div>
-        <div className="pointer-events-none absolute bottom-0 left-0 z-10">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/decoration/left-bottom-corner.png"
-            alt=""
-            className={CORNER_DECO_CLASS}
-          />
-        </div>
-        <div className="pointer-events-none absolute bottom-0 right-0 z-10">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/decoration/right-bottom-corner.png"
-            alt=""
-            className={CORNER_DECO_CLASS}
-          />
-        </div>
-
       {/* Section Header */}
       <div className={`relative z-20 mx-auto mb-6 max-w-5xl px-6 text-center @container/entourage sm:mb-8 sm:px-10 md:mb-10 md:px-12 transition-all duration-1000 ${isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-10"}`}>
-        <EntourageCoupleLabel
-          groom={siteConfig.couple.groomNickname || siteConfig.couple.groom}
-          bride={siteConfig.couple.brideNickname || siteConfig.couple.bride}
-        />
-
         <div className="mt-6 mb-4 sm:mt-8 sm:mb-5 md:mt-10 md:mb-6">
           <EntourageTitle />
         </div>
@@ -608,7 +552,7 @@ export function Entourage() {
               </div>
             ) : (
             <>
-              {(grouped["The Couple"]?.length ?? 0) === 0 ? <CoupleRingsMark /> : null}
+              <CoupleRingsMark />
               {ROLE_CATEGORY_ORDER.map((category, categoryIndex) => {
                 const members = grouped[category] || []
                 const bridalPartyHasMembers =
@@ -627,45 +571,12 @@ export function Entourage() {
                 // Render OFFICIATING MINISTER directly above Principal Sponsors (in Parents block)
                 if (category === "OFFICIATING MINISTER" && hasParents) return null
 
-                // Special handling for The Couple - display Bride and Groom side by side
-                if (category === "The Couple") {
-                   const groom = members.find(m => m.roleTitle?.toLowerCase().includes('groom'))
-                  const bride = members.find(m => m.roleTitle?.toLowerCase().includes('bride'))
-                  
-                  return (
-                    <div key={category}>
-                      <CoupleRingsMark />
-                      <TwoColumnLayout singleTitle="The Couple" centerContent={true}>
-                        <div className="px-0.5 sm:px-1 md:px-1.5 min-w-0 overflow-hidden">
-                          {groom && <NameItem member={groom} align="right" />}
-                        </div>
-                        <div className="px-0.5 sm:px-1 md:px-1.5 min-w-0 overflow-hidden">
-                          {bride && <NameItem member={bride} align="left" />}
-                        </div>
-                      </TwoColumnLayout>
-                    </div>
-                  )
-                }
-
                 // Special handling for Parents sections - combine into single two-column layout
                 if (category === "Parents of the Bride" || category === "Parents of the Groom") {
                   // Get both parent groups
                   const parentsBride = grouped["Parents of the Bride"] || []
                   const parentsGroom = grouped["Parents of the Groom"] || []
-                  
-                  // Helper function to sort parents: father first, then mother
-                  const sortParents = (members: EntourageMember[]) => {
-                    return [...members].sort((a, b) => {
-                      const aIsFather = a.roleTitle?.toLowerCase().includes('father') ?? false
-                      const bIsFather = b.roleTitle?.toLowerCase().includes('father') ?? false
-                      
-                      // Father comes first
-                      if (aIsFather && !bIsFather) return -1
-                      if (!aIsFather && bIsFather) return 1
-                      return 0
-                    })
-                  }
-                  
+
                   // Only render once (when processing "Parents of the Groom")
                   if (category === "Parents of the Groom") {
                     return (
@@ -677,8 +588,8 @@ export function Entourage() {
                         )}
                         <TwoColumnLayout leftTitle="Groom’s Parents" rightTitle="Bride’s Parents">
                           {(() => {
-                            const leftArr = sortParents(parentsGroom)
-                            const rightArr = sortParents(parentsBride)
+                            const leftArr = sortGroomParents(parentsGroom)
+                            const rightArr = sortBrideParents(parentsBride)
                             const maxLen = Math.max(leftArr.length, rightArr.length)
                             const rows = []
                             for (let i = 0; i < maxLen; i++) {
@@ -1254,7 +1165,7 @@ export function Entourage() {
         </div>
         </div>
       </div>
-      </section>
+      </Section>
     </div>
   )
 }

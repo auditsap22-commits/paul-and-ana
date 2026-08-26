@@ -4,6 +4,7 @@ import localFont from "next/font/local"
 import { motion } from "motion/react"
 import { useSiteConfig } from "@/hooks/use-site-config"
 import { sectionType, welcomeTitleSize } from "@/lib/section-typography"
+import { sectionBackground, sectionPalette } from "@/lib/section-background"
 import { Cinzel } from "next/font/google"
 
 const cinzel = Cinzel({
@@ -11,14 +12,7 @@ const cinzel = Cinzel({
   weight: ["400", "600", "700"],
 })
 
-const C = {
-  forest: "#5d6f47",
-  sage: "#949981",
-  mustard: "#eec853",
-  butter: "#f4dd97",
-  cream: "#f7f3e9",
-  ink: "#3a3128",
-} as const
+const C = sectionPalette
 
 const theSeasons = localFont({
   src: "../../Font/Fontspring-DEMO-theseasons-reg.otf",
@@ -143,6 +137,7 @@ export function Welcome() {
     <section
       id="welcome"
       className={`${theSeasons.variable} ${aboveTheBeyond.variable} relative px-3 py-5 sm:px-5 sm:py-7 md:px-6 md:py-9`}
+      style={{ background: sectionBackground }}
     >
       <div className="relative mx-auto w-full max-w-xl sm:max-w-2xl">
         <motion.article
@@ -152,12 +147,7 @@ export function Welcome() {
           transition={{ duration: 0.65, ease: [0.22, 0.61, 0.36, 1] }}
           className="relative min-w-0 overflow-visible rounded-lg border px-4 pt-6 pb-10 @container/welcome sm:rounded-xl sm:px-7 sm:pt-7 sm:pb-12 md:rounded-2xl md:px-8 md:pt-8 md:pb-14"
           style={{
-            background: `
-              radial-gradient(920px 520px at 50% 8%, color-mix(in srgb, ${C.butter} 35%, transparent) 0%, transparent 55%),
-              radial-gradient(640px 420px at 12% 88%, color-mix(in srgb, ${C.sage} 16%, transparent) 0%, transparent 58%),
-              radial-gradient(560px 380px at 92% 78%, color-mix(in srgb, ${C.mustard} 14%, transparent) 0%, transparent 55%),
-              linear-gradient(180deg, ${C.cream} 0%, #faf7ef 48%, ${C.cream} 100%)
-            `,
+            background: "var(--color-welcome-bg)",
             borderColor: `color-mix(in srgb, ${C.forest} 14%, transparent)`,
             boxShadow:
               `0 8px 28px color-mix(in srgb, ${C.forest} 7%, transparent), inset 0 1px 0 color-mix(in srgb, white 70%, transparent)`,

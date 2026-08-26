@@ -5,14 +5,15 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { useState, useEffect } from "react"
 import { Cinzel } from "next/font/google"
 import { sectionType } from "@/lib/section-typography"
+import { sectionText } from "@/lib/section-background"
 
 const cinzel = Cinzel({
   subsets: ["latin"],
   weight: ["400", "600", "700"],
 })
 
-const OUTSIDE_TEXT = "#FFFFFF"
-const OUTSIDE_TEXT_MUTED = "rgba(255, 255, 255, 0.88)"
+const OUTSIDE_TEXT = sectionText.heading
+const OUTSIDE_TEXT_MUTED = sectionText.body
 
 const palette = {
   body: "var(--color-welcome-text)",

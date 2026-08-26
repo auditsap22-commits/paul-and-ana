@@ -1,27 +1,27 @@
 /* ── Design tokens ── */
 .env-invite-screen {
-  /* Envelope — mustard gold (aligned with LoadingScreen) */
-  --env-envelope: #EEC853;
-  --env-base: #EEC853;
-  --env-highlight: color-mix(in srgb, #EEC853 72%, white);
-  --env-shadow: color-mix(in srgb, #EEC853 62%, #8a6a18);
-  --env-fold: color-mix(in srgb, #EEC853 55%, #a87818);
+  /* Envelope — forest olive paper (matches motif / reference) */
+  --env-envelope: #5C6E46;
+  --env-base: #556843;
+  --env-highlight: #677A52;
+  --env-shadow: #465536;
+  --env-fold: #4E613C;
 
   /* UI + surfaces — from globals / loading palette */
   --env-ui-brand: var(--color-motif-deep);
   --env-ui-accent: var(--color-motif-accent);
   --env-text: var(--color-welcome-text);
   --env-text-soft: var(--color-welcome-text-soft);
-  --env-wax: #9BA996;
-  --env-seal-light: color-mix(in srgb, #9BA996 72%, white);
-  --env-seal-gold: #9BA996;
-  --env-seal-mid: color-mix(in srgb, #9BA996 82%, #5d6f47);
-  --env-seal-deep: color-mix(in srgb, #9BA996 68%, #4a5a3e);
-  --env-seal-shadow: color-mix(in srgb, #9BA996 48%, #2f3a24);
+  --env-wax: #C5D45C;
+  --env-seal-light: #E7F08A;
+  --env-seal-gold: #C8D65E;
+  --env-seal-mid: #A9BB48;
+  --env-seal-deep: #87983A;
+  --env-seal-shadow: #5A6828;
   --env-paper: var(--color-motif-cream);
   --env-gold: #EEC853;
-  --env-ivory: #5C6F47;
-  --env-border: color-mix(in srgb, var(--env-envelope) 32%, transparent);
+  --env-ivory: #5C6E46;
+  --env-border: color-mix(in srgb, var(--env-shadow) 28%, transparent);
   --env-border-soft: color-mix(in srgb, var(--env-ui-accent) 28%, transparent);
 
   /*
@@ -41,26 +41,23 @@
   --z-seal: 30;
 
   /*
-    Fit envelope + chrome inside the viewport — scale via tokens, not a clipping box.
-    --env-chrome: hint + vertical padding
-    --env-cta-chrome: reveal copy + enter button when shown
+    Mobile: classic rectangular envelope on the forest page.
+    Desktop (768px+) fills the viewport.
   */
-  --env-chrome: clamp(4.25rem, 11dvh, 6rem);
-  --env-cta-chrome: clamp(7rem, 17dvh, 9rem);
-  --env-available-h: calc(100dvh - var(--env-chrome));
-  --env-width: min(310px, 78vw, calc(var(--env-available-h) * 0.64));
-  --env-ratio: 1.5;
-  --env-seal-size: clamp(70px, calc(var(--env-width) * 0.24), 88px);
-  --env-letter-w: min(230px, calc(var(--env-width) * 0.7));
-  --env-letter-h: min(292px, calc(var(--env-width) * 0.88));
-  --env-polaroid-w: min(108px, calc(var(--env-width) * 0.33));
-  --env-polaroid-h: min(108px, calc(var(--env-width) * 0.33));
-  --env-photos-band: min(300px, calc(var(--env-width) * 0.96));
-  --env-scene-shift: clamp(0.65rem, 2.25dvh, 1.35rem);
+  --env-ratio: 1.48;
+  --env-width: min(88vw, 420px);
+  --env-seal-size: clamp(78px, calc(var(--env-width) * 0.2), 118px);
+  --env-letter-w: clamp(180px, calc(var(--env-width) * 0.4), 300px);
+  --env-letter-h: clamp(220px, calc(var(--env-width) * 0.5), 360px);
+  --env-polaroid-w: clamp(104px, calc(var(--env-width) * 0.24), 176px);
+  --env-polaroid-h: clamp(104px, calc(var(--env-width) * 0.24), 176px);
+  --env-photos-band: min(calc(var(--env-width) * 0.92), 440px);
+  --env-scene-shift: 0px;
+  --env-flap-h: 58%;
   --pocket-cover: 42%;
   --pocket-lip: 58%;
-  --pocket-v: 58%;
-  --pocket-side: 28%;
+  --pocket-v: 64%;
+  --pocket-side: 22%;
 }
 
 /* ── Screen ── */
@@ -71,15 +68,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  padding:
-    max(clamp(0.75rem, 3.5dvh, 1.5rem), env(safe-area-inset-top, 0px))
-    max(0.75rem, env(safe-area-inset-right, 0px))
-    max(clamp(0.65rem, 2.5dvh, 1.25rem), env(safe-area-inset-bottom, 0px))
-    max(0.75rem, env(safe-area-inset-left, 0px));
+  justify-content: center;
+  padding: 1.35rem 1rem 2.25rem;
   background: var(--env-ivory);
-  height: 100dvh;
-  max-height: 100dvh;
+  height: 100%;
+  width: 100%;
+  max-height: 100%;
+  max-width: 100%;
   overflow: hidden;
   overscroll-behavior: none;
   transition: opacity 0.55s ease, visibility 0.55s ease;
@@ -239,7 +234,12 @@
 
 .env-invite-screen[data-phase="exiting"] .env-invite-letter {
   z-index: 48;
-  filter: drop-shadow(0 28px 56px color-mix(in srgb, var(--env-ui-brand) 22%, transparent));
+  filter: drop-shadow(0 32px 64px color-mix(in srgb, var(--env-ui-brand) 28%, transparent));
+  transition: filter 1.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.env-invite-screen[data-phase="exiting"] .env-invite-envelope {
+  transition: opacity 1.1s cubic-bezier(0.4, 0, 0.2, 1) 0.55s;
 }
 
 .env-invite-screen[data-phase="exiting"] .env-invite-reveal-copy,
@@ -339,22 +339,26 @@
   align-items: center;
   justify-content: center;
   gap: 0;
-  width: 100%;
+  width: var(--env-width);
+  height: auto;
 }
 
 .env-invite-focus {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
-  will-change: transform;
+  justify-content: center;
+  width: var(--env-width);
+  height: auto;
 }
 
-/* ── Stage — layout shell only; envelope scales via tokens, no clipping box ── */
+/* ── Stage — centers the contained envelope ── */
 .env-invite-stage {
   position: relative;
   z-index: 2;
-  width: min(500px, 94vw);
+  width: 100%;
+  height: 100%;
   flex: 1 1 auto;
   min-height: 0;
   display: flex;
@@ -366,13 +370,14 @@
 
 .env-invite-scene {
   position: relative;
-  width: 100%;
+  width: var(--env-width);
+  height: auto;
   display: flex;
   justify-content: center;
-  transform: translateY(var(--env-scene-shift));
-  transition: transform 1.15s cubic-bezier(0.22, 1, 0.36, 1);
-  perspective: 1600px;
-  perspective-origin: 50% 46%;
+  align-items: center;
+  transform: none;
+  perspective: 1800px;
+  perspective-origin: 50% 42%;
 }
 
 .env-invite-ground-shadow {
@@ -404,21 +409,27 @@
 /* ── Envelope shell ── */
 .env-invite-envelope {
   position: relative;
+  inset: auto;
   width: var(--env-width);
+  height: auto;
+  max-width: 100%;
+  max-height: none;
   aspect-ratio: var(--env-ratio);
+  flex: 0 0 auto;
   perspective: 1400px;
-  overflow: visible;
-  transition: width 1.15s cubic-bezier(0.22, 1, 0.36, 1);
+  overflow: hidden;
   filter:
-    drop-shadow(0 26px 42px rgba(42, 32, 53, 0.24))
-    drop-shadow(0 10px 18px rgba(42, 32, 53, 0.16));
+    drop-shadow(0 22px 40px rgba(42, 32, 53, 0.28))
+    drop-shadow(0 8px 16px rgba(42, 32, 53, 0.16));
+  transform: none;
+  border-radius: 8px;
 }
 
 .env-invite-envelope-body {
   position: absolute;
   inset: 0;
-  transform-style: preserve-3d;
-  overflow: visible;
+  transform-style: flat;
+  overflow: hidden;
   z-index: 3;
 }
 
@@ -436,23 +447,21 @@
   position: absolute;
   inset: 0;
   z-index: var(--z-back);
-  border-radius: 4px;
+  border-radius: 8px;
   background:
     linear-gradient(165deg, rgba(255, 255, 255, 0.07) 0%, transparent 28%),
     linear-gradient(180deg, color-mix(in srgb, var(--env-highlight) 78%, white) 0%, var(--env-base) 42%, var(--env-fold) 78%, var(--env-shadow) 100%);
   border: 1px solid var(--env-border);
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 0.1) inset,
-    0 -1px 0 rgba(0, 0, 0, 0.15) inset,
-    0 22px 54px rgba(42, 32, 53, 0.3),
-    0 8px 24px rgba(42, 32, 53, 0.18);
+    0 -1px 0 rgba(0, 0, 0, 0.15) inset;
 }
 
 .env-invite-back::before {
   content: "";
   position: absolute;
   inset: 0;
-  border-radius: 4px;
+  border-radius: 8px;
   opacity: 0.28;
   background:
     repeating-linear-gradient(
@@ -477,7 +486,7 @@
   pointer-events: none;
 }
 
-/* Interior — visible when open, behind contents */
+/* Interior — keep hidden; a dark well behind the card reads as a gap */
 .env-invite-interior {
   position: absolute;
   left: 6%;
@@ -488,16 +497,30 @@
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.28) 0%, rgba(0, 0, 0, 0.1) 100%);
   box-shadow: inset 0 14px 28px rgba(0, 0, 0, 0.32);
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
-  transition: opacity 0.45s ease;
 }
 
-/* Hide interior during flap-open — the dark well reads as a gap under the flap */
-.env-invite-screen[data-phase="rising"] .env-invite-interior,
-.env-invite-screen[data-phase="photos"] .env-invite-interior,
-.env-invite-screen[data-phase="revealed"] .env-invite-interior,
-.env-invite-screen[data-phase="cta"] .env-invite-interior {
-  opacity: 1;
+.env-invite-screen[data-phase="flap-open"] .env-invite-back,
+.env-invite-screen[data-phase="rising"] .env-invite-back,
+.env-invite-screen[data-phase="photos"] .env-invite-back,
+.env-invite-screen[data-phase="revealed"] .env-invite-back,
+.env-invite-screen[data-phase="cta"] .env-invite-back {
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--env-highlight) 88%, white) 0%,
+      var(--env-base) 42%,
+      var(--env-envelope) 100%
+    );
+}
+
+.env-invite-screen[data-phase="flap-open"] .env-invite-back::after,
+.env-invite-screen[data-phase="rising"] .env-invite-back::after,
+.env-invite-screen[data-phase="photos"] .env-invite-back::after,
+.env-invite-screen[data-phase="revealed"] .env-invite-back::after,
+.env-invite-screen[data-phase="cta"] .env-invite-back::after {
+  display: none;
 }
 
 /* ── Contents — tall rise zone; mask pocket throat during letter pull ── */
@@ -518,10 +541,10 @@
 .env-invite-screen[data-phase="rising"] .env-invite-contents-clip {
   opacity: 1;
   visibility: visible;
-  transition: opacity 0s linear, visibility 0s linear, clip-path 0.55s ease;
-  /* Hide only the pocket well — letter head stays uncropped above */
-  clip-path: inset(0 -10% 15% -10%);
-  -webkit-clip-path: inset(0 -10% 15% -10%);
+  z-index: calc(var(--z-pocket) + 4);
+  transition: opacity 0s linear, visibility 0s linear, clip-path 0.7s ease;
+  clip-path: inset(0 -20% 38% -20%);
+  -webkit-clip-path: inset(0 -20% 38% -20%);
 }
 
 .env-invite-screen[data-phase="photos"] .env-invite-contents-clip,
@@ -887,17 +910,23 @@
   right: 16%;
 }
 
+.env-invite-polaroid--right-inner {
+  display: none;
+}
+
 /* ── Closed front skin — full opaque cover ── */
 .env-invite-front-closed {
   position: absolute;
   inset: 0;
   z-index: var(--z-front-closed);
-  border-radius: 3px;
+  border-radius: 8px;
   pointer-events: none;
   overflow: hidden;
   background:
-    radial-gradient(ellipse 85% 60% at 50% 0%, rgba(255, 255, 255, 0.12) 0%, transparent 52%),
-    radial-gradient(ellipse 55% 45% at 82% 92%, rgba(0, 0, 0, 0.16) 0%, transparent 52%),
+    radial-gradient(ellipse 70% 55% at 18% 22%, color-mix(in srgb, var(--env-highlight) 55%, transparent) 0%, transparent 58%),
+    radial-gradient(ellipse 60% 50% at 82% 18%, color-mix(in srgb, var(--env-base) 40%, transparent) 0%, transparent 55%),
+    radial-gradient(ellipse 85% 60% at 50% 0%, rgba(255, 255, 255, 0.14) 0%, transparent 52%),
+    radial-gradient(ellipse 55% 45% at 82% 92%, rgba(0, 0, 0, 0.14) 0%, transparent 52%),
     radial-gradient(ellipse 40% 35% at 18% 78%, rgba(0, 0, 0, 0.08) 0%, transparent 50%),
     linear-gradient(175deg, var(--env-highlight) 0%, var(--env-base) 36%, var(--env-fold) 70%, var(--env-shadow) 100%);
   transition: opacity 0.45s ease 0.15s;
@@ -923,6 +952,16 @@
   pointer-events: none;
 }
 
+.env-invite-front-closed::after {
+  content: "";
+  position: absolute;
+  inset: clamp(8px, 1.8vw, 14px);
+  border: 1px solid color-mix(in srgb, var(--env-paper) 42%, transparent);
+  border-radius: 6px;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--env-shadow) 18%, transparent);
+  pointer-events: none;
+}
+
 .env-invite-screen[data-phase="flap-open"] .env-invite-front-closed,
 .env-invite-screen[data-phase="rising"] .env-invite-front-closed,
 .env-invite-screen[data-phase="photos"] .env-invite-front-closed,
@@ -940,22 +979,22 @@
 }
 
 .env-invite-fold--tl {
-  clip-path: polygon(0 0, 100% 0, 50% var(--pocket-v));
+  clip-path: polygon(-2px -2px, calc(100% + 2px) -2px, 50% var(--env-flap-h));
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.06) 0%, rgba(0, 0, 0, 0.08) 100%);
 }
 
 .env-invite-fold--bl {
-  clip-path: polygon(0 0, 0 100%, 50% var(--pocket-v));
-  background: linear-gradient(125deg, rgba(0, 0, 0, 0.14) 0%, rgba(0, 0, 0, 0.02) 65%);
+  clip-path: polygon(-3px -2px, -3px calc(100% + 2px), 50% var(--env-flap-h));
+  background: linear-gradient(125deg, rgba(0, 0, 0, 0.12) 0%, rgba(0, 0, 0, 0.02) 65%);
 }
 
 .env-invite-fold--br {
-  clip-path: polygon(100% 0, 100% 100%, 50% var(--pocket-v));
-  background: linear-gradient(235deg, rgba(0, 0, 0, 0.14) 0%, rgba(0, 0, 0, 0.02) 65%);
+  clip-path: polygon(calc(100% + 2px) -2px, calc(100% + 2px) calc(100% + 2px), 50% var(--env-flap-h));
+  background: linear-gradient(235deg, rgba(0, 0, 0, 0.12) 0%, rgba(0, 0, 0, 0.02) 65%);
 }
 
 .env-invite-fold--b {
-  clip-path: polygon(0 100%, 50% var(--pocket-v), 100% 100%);
+  clip-path: polygon(-2px calc(100% + 2px), 50% var(--env-flap-h), calc(100% + 2px) calc(100% + 2px));
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.1) 0%, transparent 70%);
 }
 
@@ -985,7 +1024,7 @@
 .env-invite-pocket {
   position: absolute;
   inset: 0;
-  z-index: var(--z-pocket);
+  z-index: 40;
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.2s ease;
@@ -1007,35 +1046,35 @@
 }
 
 /* Pocket lip — sits BELOW photos/letter so it never cuts through them */
+/* Pocket lip — bottom flap of the open envelope */
 .env-invite-pocket-front {
   clip-path: polygon(
-    0 var(--pocket-lip),
-    100% var(--pocket-lip),
-    100% 100%,
-    0 100%
+    0 100%,
+    50% var(--pocket-v),
+    100% 100%
   );
   background:
-    radial-gradient(ellipse 90% 35% at 50% 0%, rgba(255, 255, 255, 0.08) 0%, transparent 55%),
-    linear-gradient(180deg, color-mix(in srgb, var(--env-highlight) 78%, white) 0%, var(--env-base) 38%, var(--env-fold) 72%, var(--env-shadow) 100%);
-  box-shadow: inset 0 10px 18px rgba(0, 0, 0, 0.1);
+    radial-gradient(ellipse 90% 40% at 50% 0%, rgba(255, 255, 255, 0.12) 0%, transparent 55%),
+    linear-gradient(180deg, var(--env-highlight) 0%, var(--env-base) 42%, var(--env-fold) 100%);
+  box-shadow: inset 0 8px 16px rgba(0, 0, 0, 0.08);
 }
 
 /* Left diagonal fold */
 .env-invite-pocket-left {
-  clip-path: polygon(0 var(--pocket-side), 0 100%, 50% var(--pocket-v));
+  clip-path: polygon(-3px var(--pocket-side), -3px calc(100% + 2px), 50% var(--pocket-v));
   background:
-    linear-gradient(125deg, rgba(0, 0, 0, 0.14) 0%, transparent 55%),
-    linear-gradient(160deg, var(--env-highlight) 0%, var(--env-base) 40%, var(--env-fold) 100%);
-  box-shadow: inset -6px 0 14px rgba(0, 0, 0, 0.12);
+    linear-gradient(125deg, rgba(0, 0, 0, 0.06) 0%, transparent 58%),
+    linear-gradient(160deg, var(--env-highlight) 0%, var(--env-base) 55%, var(--env-fold) 100%);
+  box-shadow: inset -4px 0 10px rgba(0, 0, 0, 0.06);
 }
 
 /* Right diagonal fold */
 .env-invite-pocket-right {
-  clip-path: polygon(100% var(--pocket-side), 100% 100%, 50% var(--pocket-v));
+  clip-path: polygon(calc(100% + 2px) var(--pocket-side), calc(100% + 2px) calc(100% + 2px), 50% var(--pocket-v));
   background:
-    linear-gradient(235deg, rgba(0, 0, 0, 0.14) 0%, transparent 55%),
-    linear-gradient(200deg, var(--env-highlight) 0%, var(--env-base) 40%, var(--env-fold) 100%);
-  box-shadow: inset 6px 0 14px rgba(0, 0, 0, 0.12);
+    linear-gradient(235deg, rgba(0, 0, 0, 0.06) 0%, transparent 58%),
+    linear-gradient(200deg, var(--env-highlight) 0%, var(--env-base) 55%, var(--env-fold) 100%);
+  box-shadow: inset 4px 0 10px rgba(0, 0, 0, 0.06);
 }
 
 /* Soft crease lines on pocket */
@@ -1070,9 +1109,9 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 62%;
+  height: var(--env-flap-h, 46%);
   clip-path: polygon(0 0, 100% 0, 50% 100%);
-  background: linear-gradient(160deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
+  background: linear-gradient(160deg, rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0));
   z-index: calc(var(--z-flap-closed) - 1);
   pointer-events: none;
 }
@@ -1090,20 +1129,18 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 62%;
+  height: var(--env-flap-h, 46%);
   clip-path: polygon(0 0, 100% 0, 50% 100%);
   transform-origin: top center;
   z-index: var(--z-flap-closed);
   background:
     linear-gradient(145deg, rgba(255, 255, 255, 0.1) 0%, transparent 38%),
     linear-gradient(160deg, var(--env-highlight) 0%, var(--env-base) 55%, var(--env-fold) 100%);
-  border-bottom: 1px solid var(--env-border);
+  border-bottom: none;
   box-shadow:
     inset 0 -12px 20px rgba(0, 0, 0, 0.14),
-    inset 0 2px 0 rgba(255, 255, 255, 0.06),
-    0 6px 16px rgba(0, 0, 0, 0.12);
+    inset 0 2px 0 rgba(255, 255, 255, 0.06);
   pointer-events: none;
-  will-change: transform;
 }
 
 .env-invite-flap::after {
@@ -1115,6 +1152,23 @@
   pointer-events: none;
 }
 
+.env-invite-screen[data-phase="flap-open"] .env-invite-envelope,
+.env-invite-screen[data-phase="rising"] .env-invite-envelope,
+.env-invite-screen[data-phase="photos"] .env-invite-envelope,
+.env-invite-screen[data-phase="revealed"] .env-invite-envelope,
+.env-invite-screen[data-phase="cta"] .env-invite-envelope {
+  perspective: 1400px;
+  overflow: visible;
+}
+
+.env-invite-screen[data-phase="flap-open"] .env-invite-envelope-body,
+.env-invite-screen[data-phase="rising"] .env-invite-envelope-body,
+.env-invite-screen[data-phase="photos"] .env-invite-envelope-body,
+.env-invite-screen[data-phase="revealed"] .env-invite-envelope-body,
+.env-invite-screen[data-phase="cta"] .env-invite-envelope-body {
+  overflow: visible;
+}
+
 .env-invite-screen[data-phase="flap-open"] .env-invite-flap,
 .env-invite-screen[data-phase="rising"] .env-invite-flap,
 .env-invite-screen[data-phase="photos"] .env-invite-flap,
@@ -1122,7 +1176,15 @@
 .env-invite-screen[data-phase="cta"] .env-invite-flap {
   z-index: var(--z-flap-open);
   border-bottom-color: transparent;
-  box-shadow: inset 0 10px 18px rgba(0, 0, 0, 0.08);
+  box-shadow: inset 0 8px 14px rgba(0, 0, 0, 0.05);
+}
+
+.env-invite-screen[data-phase="flap-open"] .env-invite-flap::after,
+.env-invite-screen[data-phase="rising"] .env-invite-flap::after,
+.env-invite-screen[data-phase="photos"] .env-invite-flap::after,
+.env-invite-screen[data-phase="revealed"] .env-invite-flap::after,
+.env-invite-screen[data-phase="cta"] .env-invite-flap::after {
+  opacity: 0;
 }
 
 /* Hinge — hidden; was drawing a line through contents */
@@ -1134,7 +1196,7 @@
 .env-invite-seal-wrap {
   position: absolute;
   left: 50%;
-  top: 57%;
+  top: var(--env-flap-h, 46%);
   z-index: var(--z-seal);
   width: var(--env-seal-size);
   height: var(--env-seal-size);
@@ -1247,11 +1309,14 @@
 /* ── Hint ── */
 .env-invite-hint {
   position: relative;
-  z-index: 2;
+  left: auto;
+  right: auto;
+  bottom: auto;
+  z-index: 32;
   flex-shrink: 0;
   display: block;
   width: 100%;
-  margin: clamp(0.85rem, 2.4dvh, 1.25rem) 0 0;
+  margin: 1.15rem 0 0;
   text-align: center;
   font-family: "Cinzel", serif;
   font-size: clamp(0.62rem, 2.2vw, 0.8rem);
@@ -1269,12 +1334,10 @@
 }
 
 .env-invite-days-to-go {
-  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
   width: 100%;
-  margin: 0;
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
+  margin: 0 0 0.45rem;
   text-align: center;
   font-family: "Cinzel", serif;
   font-size: clamp(0.92rem, 3.6vw, 1.28rem);
@@ -1285,15 +1348,6 @@
   color: #F7F3E9;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.28);
   pointer-events: none;
-  transition:
-    max-height 1.1s cubic-bezier(0.22, 1, 0.36, 1),
-    margin-top 1.1s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.env-invite-screen[data-phase="revealed"] .env-invite-days-to-go,
-.env-invite-screen[data-phase="cta"] .env-invite-days-to-go {
-  margin-top: clamp(2rem, 5.5dvh, 3.25rem);
-  max-height: 3.5rem;
 }
 
 .env-invite-screen[data-phase="seal-press"] .env-invite-hint,
@@ -1367,25 +1421,28 @@
   align-items: center;
   justify-content: center;
   margin: 0;
-  padding: 0.55rem 1.85rem;
-  min-height: 2.75rem;
+  padding: 0.7rem 1.85rem;
+  min-height: 3rem;
   font-family: "Cinzel", serif;
-  font-size: 0.58rem;
-  line-height: 1.15;
-  letter-spacing: 0.24em;
+  font-size: clamp(0.72rem, 2.85vw, 0.9rem);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   white-space: nowrap;
-  color: #3A3128;
-  background: var(--env-envelope);
-  border: 1px solid color-mix(in srgb, var(--env-envelope) 72%, #8a6a18);
-  box-shadow: 0 8px 22px color-mix(in srgb, var(--env-envelope) 28%, transparent);
+  color: #2a2218;
+  -webkit-font-smoothing: antialiased;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.28);
+  background: var(--env-gold);
+  border: 1px solid color-mix(in srgb, var(--env-gold) 72%, #8a6a18);
+  box-shadow: 0 8px 22px color-mix(in srgb, var(--env-gold) 28%, transparent);
   cursor: pointer;
   transition: background 0.25s ease, box-shadow 0.25s ease;
 }
 
 .env-invite-enter-btn:hover {
-  background: color-mix(in srgb, var(--env-envelope) 88%, #8a6a18);
-  box-shadow: 0 10px 26px color-mix(in srgb, var(--env-envelope) 36%, transparent);
+  background: color-mix(in srgb, var(--env-gold) 88%, #8a6a18);
+  box-shadow: 0 10px 26px color-mix(in srgb, var(--env-gold) 36%, transparent);
 }
 
 .env-invite-enter-btn:focus-visible {
@@ -1416,11 +1473,6 @@
 }
 
 @media (max-width: 480px) {
-  .env-invite-screen {
-    --env-chrome: clamp(3.75rem, 10dvh, 5.5rem);
-    --env-cta-chrome: clamp(6.5rem, 15dvh, 8.5rem);
-  }
-
   .env-invite-hint {
     letter-spacing: 0.14em;
   }
@@ -1429,9 +1481,7 @@
 /* Short / narrow viewports — tighten chrome, keep envelope proportional */
 @media (max-width: 390px), (max-height: 700px) {
   .env-invite-screen {
-    --env-chrome: clamp(3.5rem, 9dvh, 5rem);
-    --env-cta-chrome: clamp(9rem, 22dvh, 10.5rem);
-    --env-scene-shift: clamp(0.45rem, 1.75dvh, 1rem);
+    --env-scene-shift: 0px;
   }
 
   .env-invite-emerge-stack {
@@ -1455,18 +1505,14 @@
   }
 
   .env-invite-hint {
-    margin-top: clamp(0.55rem, 1.75dvh, 0.9rem);
+    margin-top: 0;
     letter-spacing: 0.14em;
   }
 
   .env-invite-days-to-go {
     font-size: max(0.84rem, 3.2vw);
     letter-spacing: 0.1em;
-  }
-
-  .env-invite-screen[data-phase="revealed"] .env-invite-days-to-go,
-  .env-invite-screen[data-phase="cta"] .env-invite-days-to-go {
-    margin-top: clamp(1.75rem, 5dvh, 2.75rem);
+    margin-bottom: 0.35rem;
   }
 
   .env-invite-reveal-copy {
@@ -1491,19 +1537,18 @@
 
   .env-invite-enter-btn {
     bottom: calc(clamp(1rem, 3dvh, 1.65rem) + env(safe-area-inset-bottom, 0px));
-    padding: 0.5rem 1.25rem;
-    min-height: 2.75rem;
-    font-size: max(0.5rem, 2.35vw);
-    letter-spacing: 0.18em;
+    padding: 0.62rem 1.35rem;
+    min-height: 2.875rem;
+    font-size: max(0.68rem, 2.65vw);
+    font-weight: 600;
+    letter-spacing: 0.12em;
   }
 }
 
 /* Very short viewports — iPhone SE 1st gen, compact phones */
 @media (max-width: 320px), (max-height: 580px) {
   .env-invite-screen {
-    --env-chrome: clamp(2.5rem, 7dvh, 3.75rem);
-    --env-cta-chrome: clamp(8.25rem, 21dvh, 9.75rem);
-    --env-scene-shift: clamp(0.1rem, 1.5dvh, 0.85rem);
+    --env-scene-shift: 0px;
   }
 
   .env-invite-reveal-copy {
@@ -1520,18 +1565,504 @@
 
   .env-invite-enter-btn {
     bottom: calc(clamp(0.75rem, 2.5dvh, 1.25rem) + env(safe-area-inset-bottom, 0px));
-    padding: 0.45rem 1.05rem;
-    min-height: 2.625rem;
-    font-size: max(0.48rem, 2.2vw);
-    letter-spacing: 0.16em;
+    padding: 0.58rem 1.15rem;
+    min-height: 2.75rem;
+    font-size: max(0.64rem, 2.5vw);
+    font-weight: 600;
+    letter-spacing: 0.11em;
   }
 }
 
-/* Reveal / CTA — keep envelope closer to bottom copy + button */
+/* Mobile open: paper + photos stay tucked behind the pocket V */
+@media (max-width: 767px) {
+  .env-invite-screen {
+    background: transparent;
+  }
+
+  .env-invite-screen::before,
+  .env-invite-bg-glow {
+    display: none;
+  }
+
+  .env-invite-screen[data-phase="exiting"]::before {
+    display: block;
+    opacity: 1;
+    background:
+      radial-gradient(
+        920px 680px at 50% 52%,
+        color-mix(in srgb, var(--color-motif-cream) 92%, transparent) 0%,
+        transparent 62%
+      ),
+      radial-gradient(
+        680px 460px at 50% 88%,
+        color-mix(in srgb, var(--ls-forest, var(--color-motif-deep)) 18%, transparent) 0%,
+        transparent 58%
+      );
+    transition: opacity 1.65s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .env-invite-exit-ring {
+    top: 52%;
+  }
+
+  .env-invite-exit-bloom {
+    transform-origin: 50% 52%;
+    background:
+      radial-gradient(
+        circle at 50% 52%,
+        color-mix(in srgb, var(--color-motif-cream) 98%, transparent) 0%,
+        color-mix(in srgb, var(--color-motif-soft) 88%, transparent) 28%,
+        transparent 68%
+      ),
+      radial-gradient(
+        circle at 50% 52%,
+        color-mix(in srgb, var(--env-ui-accent) 18%, transparent) 0%,
+        transparent 52%
+      );
+  }
+
+  .env-invite-exit-curtain {
+    display: none;
+  }
+
+  .env-invite-stage {
+    justify-content: flex-end;
+    padding-top: 5.5rem;
+    padding-bottom: calc(6.25rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  .env-invite-screen[data-phase="flap-open"] .env-invite-pocket,
+  .env-invite-screen[data-phase="rising"] .env-invite-pocket,
+  .env-invite-screen[data-phase="photos"] .env-invite-pocket,
+  .env-invite-screen[data-phase="revealed"] .env-invite-pocket,
+  .env-invite-screen[data-phase="cta"] .env-invite-pocket {
+    z-index: 40;
+  }
+
+  .env-invite-pocket-front {
+    z-index: 3;
+  }
+
+  .env-invite-pocket-left,
+  .env-invite-pocket-right {
+    z-index: 2;
+  }
+
+  .env-invite-screen[data-phase="flap-open"],
+  .env-invite-screen[data-phase="rising"],
+  .env-invite-screen[data-phase="photos"],
+  .env-invite-screen[data-phase="revealed"],
+  .env-invite-screen[data-phase="cta"] {
+    --pocket-v: 54%;
+    --pocket-side: 18%;
+  }
+
+  /*
+    Clip box matches the envelope so the V lip lines up with the pocket flaps.
+    Content may extend above via the open top of the polygon.
+  */
+  .env-invite-screen[data-phase="rising"] .env-invite-contents-clip,
+  .env-invite-screen[data-phase="photos"] .env-invite-contents-clip,
+  .env-invite-screen[data-phase="revealed"] .env-invite-contents-clip,
+  .env-invite-screen[data-phase="cta"] .env-invite-contents-clip {
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 5;
+    overflow: visible;
+    clip-path: polygon(
+      -20% -180%,
+      120% -180%,
+      120% var(--pocket-side),
+      50% var(--pocket-v),
+      -20% var(--pocket-side)
+    );
+    -webkit-clip-path: polygon(
+      -20% -180%,
+      120% -180%,
+      120% var(--pocket-side),
+      50% var(--pocket-v),
+      -20% var(--pocket-side)
+    );
+  }
+
+  .env-invite-screen[data-phase="rising"] .env-invite-emerge-stack,
+  .env-invite-screen[data-phase="photos"] .env-invite-emerge-stack,
+  .env-invite-screen[data-phase="revealed"] .env-invite-emerge-stack,
+  .env-invite-screen[data-phase="cta"] .env-invite-emerge-stack {
+    bottom: 16%;
+    overflow: visible;
+  }
+
+  .env-invite-photos-emerge {
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    min-height: 0;
+    clip-path: none;
+    -webkit-clip-path: none;
+    overflow: visible;
+    z-index: 12;
+  }
+
+  .env-invite-emerge-stack .env-invite-letter {
+    z-index: 24;
+    top: -88%;
+  }
+
+  .env-invite-screen[data-phase="rising"] .env-invite-emerge-stack .env-invite-letter,
+  .env-invite-screen[data-phase="photos"] .env-invite-emerge-stack .env-invite-letter,
+  .env-invite-screen[data-phase="revealed"] .env-invite-emerge-stack .env-invite-letter,
+  .env-invite-screen[data-phase="cta"] .env-invite-emerge-stack .env-invite-letter {
+    top: -88%;
+  }
+
+  .env-invite-photos-emerge .env-invite-polaroid {
+    top: auto;
+    bottom: 42%;
+  }
+
+  .env-invite-photos-emerge .env-invite-polaroid--left {
+    left: 2%;
+  }
+
+  .env-invite-photos-emerge .env-invite-polaroid--center {
+    top: auto;
+    bottom: 28%;
+  }
+
+  .env-invite-photos-emerge .env-invite-polaroid--right {
+    right: 2%;
+  }
+}
+
+/* Reveal / CTA — keep the rectangular envelope size on mobile */
 .env-invite-screen[data-phase="revealed"],
 .env-invite-screen[data-phase="cta"] {
-  --env-available-h: calc(100dvh - var(--env-cta-chrome));
-  --env-width: min(310px, 78vw, calc(var(--env-available-h) * 0.62));
+  --env-width: min(88vw, 420px);
+}
+
+/* Desktop: flush full-bleed envelope, folds meet at the seal */
+@media (min-width: 768px) {
+  .env-invite-screen {
+    --env-ratio: 1;
+    --env-width: 100%;
+    --env-flap-h: 50%;
+    --env-seal-size: clamp(88px, 8vw, 128px);
+    --env-letter-w: clamp(220px, 22vw, 360px);
+    --env-letter-h: clamp(280px, 28vw, 460px);
+    --env-polaroid-w: clamp(100px, 10vw, 150px);
+    --env-polaroid-h: clamp(100px, 10vw, 150px);
+    --env-photos-band: min(42vw, 460px);
+    align-items: stretch;
+    justify-content: stretch;
+    background: var(--env-envelope);
+    padding: 0;
+  }
+
+  .env-invite-screen[data-phase="revealed"],
+  .env-invite-screen[data-phase="cta"] {
+    --env-width: 100%;
+  }
+
+  .env-invite-corner,
+  .env-invite-ghost-date {
+    display: none;
+  }
+
+  .env-invite-hint {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: max(1.15rem, calc(0.75rem + env(safe-area-inset-bottom, 0px)));
+    margin: 0;
+  }
+
+  .env-invite-days-to-go,
+  .env-invite-reveal-copy h2 {
+    display: none;
+  }
+
+  .env-invite-reveal-copy .script {
+    color: #ffffff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.28);
+  }
+
+  .env-invite-reveal-copy p {
+    color: color-mix(in srgb, #F7F3E9 82%, transparent);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.22);
+  }
+
+  .env-invite-screen,
+  .env-invite-stage,
+  .env-invite-cluster,
+  .env-invite-focus,
+  .env-invite-scene {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .env-invite-cluster,
+  .env-invite-focus {
+    display: block;
+  }
+
+  .env-invite-stage {
+    display: block;
+  }
+
+  .env-invite-scene {
+    display: flex;
+    justify-content: stretch;
+    align-items: stretch;
+    perspective: none;
+  }
+
+  .env-invite-envelope,
+  .env-invite-envelope-body,
+  .env-invite-back,
+  .env-invite-front-closed {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    aspect-ratio: unset;
+    border-radius: 0;
+    filter: none;
+  }
+
+  .env-invite-back {
+    border: none;
+    box-shadow: none;
+  }
+
+  .env-invite-back::before {
+    border-radius: 0;
+  }
+
+  .env-invite-flap-shadow,
+  .env-invite-flap {
+    top: -2px;
+    left: -3px;
+    width: calc(100% + 6px);
+    height: calc(var(--env-flap-h, 50%) + 2px);
+  }
+
+  .env-invite-front-closed::after {
+    inset: 0;
+    border-radius: 0;
+    border-color: transparent;
+    box-shadow: none;
+  }
+
+  .env-invite-screen::before,
+  .env-invite-bg-glow,
+  .env-invite-ground-shadow,
+  .env-invite-ground-contact {
+    opacity: 0;
+  }
+
+  /* Open envelope: keep card + photos fully on screen, above the pocket */
+  .env-invite-screen[data-phase="flap-open"],
+  .env-invite-screen[data-phase="rising"],
+  .env-invite-screen[data-phase="photos"],
+  .env-invite-screen[data-phase="revealed"],
+  .env-invite-screen[data-phase="cta"] {
+    --pocket-v: 86%;
+    --pocket-side: 78%;
+    --pocket-lip: 82%;
+    --pocket-cover: 16%;
+    --env-letter-w: clamp(380px, 40vw, 560px);
+    --env-letter-h: clamp(540px, 66vh, 800px);
+    --env-polaroid-w: clamp(150px, 14vw, 220px);
+    --env-polaroid-h: clamp(150px, 14vw, 220px);
+    --env-photos-band: min(94vw, 1280px);
+    --env-width: 100%;
+  }
+
+  .env-invite-screen[data-phase="flap-open"] .env-invite-envelope,
+  .env-invite-screen[data-phase="rising"] .env-invite-envelope,
+  .env-invite-screen[data-phase="photos"] .env-invite-envelope,
+  .env-invite-screen[data-phase="revealed"] .env-invite-envelope,
+  .env-invite-screen[data-phase="cta"] .env-invite-envelope,
+  .env-invite-screen[data-phase="flap-open"] .env-invite-envelope-body,
+  .env-invite-screen[data-phase="rising"] .env-invite-envelope-body,
+  .env-invite-screen[data-phase="photos"] .env-invite-envelope-body,
+  .env-invite-screen[data-phase="revealed"] .env-invite-envelope-body,
+  .env-invite-screen[data-phase="cta"] .env-invite-envelope-body {
+    overflow: visible;
+  }
+
+  .env-invite-screen[data-phase="rising"] .env-invite-contents-clip,
+  .env-invite-screen[data-phase="photos"] .env-invite-contents-clip,
+  .env-invite-screen[data-phase="revealed"] .env-invite-contents-clip,
+  .env-invite-screen[data-phase="cta"] .env-invite-contents-clip {
+    left: -12%;
+    right: -12%;
+    top: -40%;
+    bottom: 0;
+    z-index: 22;
+    overflow: visible;
+    clip-path: none;
+    -webkit-clip-path: none;
+  }
+
+  .env-invite-screen[data-phase="flap-open"] .env-invite-pocket,
+  .env-invite-screen[data-phase="rising"] .env-invite-pocket,
+  .env-invite-screen[data-phase="photos"] .env-invite-pocket,
+  .env-invite-screen[data-phase="revealed"] .env-invite-pocket,
+  .env-invite-screen[data-phase="cta"] .env-invite-pocket,
+  .env-invite-pocket {
+    z-index: 8;
+  }
+
+  .env-invite-letter {
+    min-height: var(--env-letter-h);
+    height: var(--env-letter-h);
+    overflow: visible;
+    box-shadow:
+      0 22px 48px rgba(42, 32, 53, 0.22),
+      0 8px 18px rgba(42, 32, 53, 0.1),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.5),
+      inset 0 -18px 24px color-mix(in srgb, var(--env-ui-accent) 6%, transparent);
+  }
+
+  .env-invite-letter-inner {
+    font-size: clamp(16px, calc(var(--env-letter-w) * 0.055), 24px);
+    gap: 0.55em;
+    padding:
+      clamp(1.65rem, calc(var(--env-letter-w) * 0.09), 2.75rem)
+      clamp(0.85rem, calc(var(--env-letter-w) * 0.055), 1.45rem)
+      clamp(1.65rem, calc(var(--env-letter-w) * 0.09), 2.75rem);
+  }
+
+  .env-invite-letter-label {
+    font-size: 1.05em;
+  }
+
+  .env-invite-letter-date {
+    font-size: 1.95em;
+  }
+
+  .env-invite-letter-invited {
+    font-size: 1.5em;
+  }
+
+  .env-invite-letter-names {
+    width: min(100%, calc(var(--env-letter-w) * 0.86));
+    margin: 0.2em 0 0.35em;
+  }
+
+  .env-invite-screen[data-phase="rising"] .env-invite-emerge-stack,
+  .env-invite-screen[data-phase="photos"] .env-invite-emerge-stack,
+  .env-invite-screen[data-phase="revealed"] .env-invite-emerge-stack,
+  .env-invite-screen[data-phase="cta"] .env-invite-emerge-stack {
+    bottom: 12%;
+    overflow: visible;
+  }
+
+  .env-invite-emerge-stack .env-invite-letter {
+    top: -38%;
+  }
+
+  .env-invite-photos-emerge {
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    width: var(--env-photos-band);
+    min-height: 0;
+    clip-path: none;
+    -webkit-clip-path: none;
+    overflow: visible;
+  }
+
+  .env-invite-photos-emerge .env-invite-polaroid {
+    bottom: auto;
+    top: 22%;
+  }
+
+  .env-invite-photos-emerge .env-invite-polaroid--left {
+    left: 2%;
+  }
+
+  .env-invite-photos-emerge .env-invite-polaroid--center {
+    left: 13%;
+    margin-left: 0;
+    top: 36%;
+  }
+
+  .env-invite-photos-emerge .env-invite-polaroid--right {
+    right: 2%;
+  }
+
+  .env-invite-photos-emerge .env-invite-polaroid--right-inner {
+    display: block;
+    left: auto;
+    right: 13%;
+    top: 36%;
+    margin-left: 0;
+  }
+
+  .env-invite-pocket-front {
+    z-index: 3;
+    clip-path: polygon(-2% 102%, 50% var(--pocket-v), 102% 102%);
+    background:
+      linear-gradient(180deg, var(--env-highlight) 0%, var(--env-base) 42%, var(--env-fold) 100%);
+    box-shadow: inset 0 12px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  .env-invite-pocket-left,
+  .env-invite-pocket-right {
+    z-index: 2;
+  }
+
+  .env-invite-pocket-left {
+    clip-path: polygon(-3px var(--pocket-side), -3px calc(100% + 2px), 50% var(--pocket-v));
+    background:
+      linear-gradient(125deg, rgba(0, 0, 0, 0.04) 0%, transparent 62%),
+      linear-gradient(160deg, var(--env-highlight) 0%, var(--env-base) 70%, var(--env-envelope) 100%);
+    box-shadow: none;
+  }
+
+  .env-invite-pocket-right {
+    clip-path: polygon(calc(100% + 2px) var(--pocket-side), calc(100% + 2px) calc(100% + 2px), 50% var(--pocket-v));
+    background:
+      linear-gradient(235deg, rgba(0, 0, 0, 0.04) 0%, transparent 62%),
+      linear-gradient(200deg, var(--env-highlight) 0%, var(--env-base) 70%, var(--env-envelope) 100%);
+    box-shadow: none;
+  }
+
+  .env-invite-pocket-left::after,
+  .env-invite-pocket-right::after {
+    opacity: 0.28;
+  }
+}
+
+/* Landscape phones: same rectangular envelope, a bit smaller */
+@media (min-aspect-ratio: 1/1) and (max-width: 767px) {
+  .env-invite-screen {
+    --env-ratio: 1.48;
+    --env-width: min(62vw, 380px);
+    --env-flap-h: 58%;
+    --env-seal-size: clamp(72px, calc(var(--env-width) * 0.18), 110px);
+    --env-letter-w: clamp(180px, calc(var(--env-width) * 0.38), 280px);
+    --env-letter-h: clamp(230px, calc(var(--env-width) * 0.52), 360px);
+    --env-polaroid-w: clamp(96px, calc(var(--env-width) * 0.22), 156px);
+    --env-polaroid-h: clamp(96px, calc(var(--env-width) * 0.22), 156px);
+    --env-photos-band: min(calc(var(--env-width) * 0.86), 360px);
+  }
+
+  .env-invite-screen[data-phase="revealed"],
+  .env-invite-screen[data-phase="cta"] {
+    --env-width: min(62vw, 380px);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

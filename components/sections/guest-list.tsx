@@ -22,6 +22,12 @@ import { Cinzel } from "next/font/google"
 import localFont from "next/font/local"
 import { useSiteConfig } from "@/hooks/use-site-config"
 import { modalTitleSize, sectionType, welcomeTitleSize } from "@/lib/section-typography"
+import {
+  sectionBackground,
+  sectionDividerLineStyle,
+  sectionDividerLineStyleLeft,
+  sectionText,
+} from "@/lib/section-background"
 
 const cinzel = Cinzel({
   subsets: ["latin"],
@@ -40,9 +46,8 @@ const aboveTheBeyond = localFont({
   variable: "--font-above-beyond",
 })
 
-const OUTSIDE_TEXT = "#FFFFFF"
-const OUTSIDE_TEXT_MUTED = "rgba(255, 255, 255, 0.88)"
-const OUTSIDE_TITLE_SHADOW = "0 2px 6px rgba(0,0,0,0.28), 0 0 18px rgba(0,0,0,0.12)"
+const OUTSIDE_TEXT = sectionText.title
+const OUTSIDE_TEXT_MUTED = sectionText.body
 
 const palette = {
   body: "var(--color-welcome-text)",
@@ -453,17 +458,21 @@ export function GuestList() {
   }
 
   return (
+    <div
+      className={`${theSeasons.variable} ${aboveTheBeyond.variable} relative w-full`}
+      style={{ background: sectionBackground }}
+    >
     <section
       id="guest-list"
-      className={`${theSeasons.variable} ${aboveTheBeyond.variable} relative z-30 bg-transparent py-6 sm:py-10 md:py-12 lg:py-16`}
+      className="relative z-30 py-6 sm:py-10 md:py-12 lg:py-16"
     >
       {/* Header */}
       <div className="relative z-10 mx-auto mb-4 max-w-5xl px-2 text-center @container/guest-list sm:mb-6 sm:px-3 md:mb-8 md:px-4 lg:mb-10">
         {/* Ornamental divider */}
         <div className="mx-auto mb-5 flex items-center justify-center gap-1.5 sm:mb-6 md:mb-7">
-          <span className="h-px w-6 sm:w-10" style={{ background: "linear-gradient(to right, transparent, rgba(255,255,255,0.55), transparent)" }} />
-          <span className="h-0.5 w-0.5 rounded-full bg-white/50 sm:h-1 sm:w-1" aria-hidden />
-          <span className="h-px w-6 sm:w-10" style={{ background: "linear-gradient(to left, transparent, rgba(255,255,255,0.55), transparent)" }} />
+          <span className="h-px w-6 sm:w-10" style={sectionDividerLineStyle} />
+          <span className="h-0.5 w-0.5 rounded-full bg-motif-deep/45 sm:h-1 sm:w-1" aria-hidden />
+          <span className="h-px w-6 sm:w-10" style={sectionDividerLineStyleLeft} />
         </div>
 
         {/* Title block */}
@@ -478,7 +487,7 @@ export function GuestList() {
         >
           <span
             className={`${theSeasons.className} block uppercase leading-[0.78] tracking-[0.08em] min-[400px]:tracking-[0.11em] sm:tracking-[0.13em] md:tracking-[0.14em] pb-1 sm:pb-1.5`}
-            style={{ fontSize: "var(--title-size)", color: OUTSIDE_TEXT, textShadow: OUTSIDE_TITLE_SHADOW }}
+            style={{ fontSize: "var(--title-size)", color: sectionText.title }}
           >
             RSVP
           </span>
@@ -487,8 +496,7 @@ export function GuestList() {
             className={`${aboveTheBeyond.className} mx-auto block w-fit max-w-full px-1 leading-[0.88] sm:leading-[0.9] mt-2 sm:mt-2.5 md:mt-3`}
             style={{
               fontSize: "var(--script-size)",
-              color: OUTSIDE_TEXT_MUTED,
-              textShadow: OUTSIDE_TITLE_SHADOW,
+              color: sectionText.script,
             }}
           >
             Confirm your attendance
@@ -514,7 +522,7 @@ export function GuestList() {
 
         {/* Divider below header */}
         <div className="mt-4 flex items-center justify-center sm:mt-5">
-          <span className="h-px w-16 sm:w-24 md:w-32 bg-white/50" />
+          <span className="h-px w-16 sm:w-24 md:w-32 bg-motif-deep/35" />
         </div>
       </div>
 
@@ -1452,5 +1460,6 @@ export function GuestList() {
         </div>
       )}
     </section>
+    </div>
   )
 }

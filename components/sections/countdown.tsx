@@ -9,6 +9,12 @@ import { useSiteConfig } from "@/hooks/use-site-config"
 import Counter from "@/components/Counter"
 import Image from "next/image"
 import { parseWeddingDate } from "@/lib/wedding-date"
+import {
+  sectionBackground,
+  sectionDividerLineStyle,
+  sectionDividerLineStyleLeft,
+  sectionText,
+} from "@/lib/section-background"
 
 interface TimeLeft {
   days: number
@@ -39,32 +45,14 @@ const aboveTheBeyond = localFont({
   variable: "--font-above-beyond",
 })
 
-const OUTSIDE_TEXT = "#FFFFFF"
-const OUTSIDE_TEXT_MUTED = "rgba(255, 255, 255, 0.88)"
-const OUTSIDE_TITLE_SHADOW =
-  "0 2px 6px rgba(0, 0, 0, 0.28), 0 0 18px rgba(0, 0, 0, 0.12)"
-const READABLE_SHADOW = "0 1px 3px rgba(0,0,0,0.55), 0 2px 10px rgba(0,0,0,0.35)"
-
-const outsideDividerLineStyle = {
-  background:
-    "linear-gradient(to right, transparent, rgba(255, 255, 255, 0.55), transparent)",
-} as const
-
-const CORNER_DECO_CLASS =
-  "block h-auto w-auto max-w-[120px] sm:max-w-[150px] md:max-w-[190px] lg:max-w-[220px] opacity-80"
+const outsideDividerLineStyle = sectionDividerLineStyle
 
 function OutsideDivider() {
   return (
     <div className="flex items-center justify-center gap-1.5">
       <span className="h-px w-6 sm:w-10" style={outsideDividerLineStyle} />
-      <span className="h-0.5 w-0.5 rounded-full bg-white/50 sm:h-1 sm:w-1" aria-hidden />
-      <span
-        className="h-px w-6 sm:w-10"
-        style={{
-          background:
-            "linear-gradient(to left, transparent, rgba(255, 255, 255, 0.55), transparent)",
-        }}
-      />
+      <span className="h-0.5 w-0.5 rounded-full bg-motif-deep/45 sm:h-1 sm:w-1" aria-hidden />
+      <span className="h-px w-6 sm:w-10" style={sectionDividerLineStyleLeft} />
     </div>
   )
 }
@@ -84,8 +72,7 @@ function CountdownTitle() {
         className={`${theSeasons.className} block uppercase leading-[0.78] tracking-[0.08em] min-[400px]:tracking-[0.11em] sm:tracking-[0.15em] md:tracking-[0.18em] pb-1 sm:pb-1.5`}
         style={{
           fontSize: "var(--title-size)",
-          color: OUTSIDE_TEXT,
-          textShadow: OUTSIDE_TITLE_SHADOW,
+          color: sectionText.title,
         }}
       >
         Counting Down
@@ -95,8 +82,7 @@ function CountdownTitle() {
         className={`${aboveTheBeyond.className} mx-auto block w-fit max-w-full px-1 leading-[0.88] sm:leading-[0.9] mt-2 sm:mt-2.5 md:mt-3`}
         style={{
           fontSize: "var(--script-size)",
-          color: OUTSIDE_TEXT_MUTED,
-          textShadow: OUTSIDE_TITLE_SHADOW,
+          color: sectionText.script,
         }}
       >
         To our forever
@@ -117,7 +103,7 @@ function CountdownUnit({ value, label }: CountdownUnitProps) {
       {/* Card container */}
       <div className="relative w-full max-w-[88px] sm:max-w-[96px] md:max-w-[110px] lg:max-w-[120px]">
         {/* Main card */}
-        <div className="relative rounded-xl border border-white/40 bg-white/10 px-2.5 py-2.5 sm:rounded-2xl sm:px-3.5 sm:py-3.5 md:px-4 md:py-4">
+        <div className="relative rounded-xl border border-motif-deep/20 bg-[var(--color-welcome-bg)] px-2.5 py-2.5 shadow-sm sm:rounded-2xl sm:px-3.5 sm:py-3.5 md:px-4 md:py-4">
           <div className="relative z-10 flex items-center justify-center">
             <Counter
               value={value}
@@ -125,7 +111,7 @@ function CountdownUnit({ value, label }: CountdownUnitProps) {
               fontSize={26}
               padding={4}
               gap={2}
-              textColor={OUTSIDE_TEXT}
+              textColor={sectionText.title}
               fontWeight={800}
               borderRadius={6}
               horizontalPadding={3}
@@ -138,8 +124,7 @@ function CountdownUnit({ value, label }: CountdownUnitProps) {
               digitStyle={{
                 minWidth: "1.15ch",
                 fontFamily: "Arial, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-                color: OUTSIDE_TEXT,
-                textShadow: READABLE_SHADOW,
+                color: sectionText.title,
               }}
             />
           </div>
@@ -148,7 +133,7 @@ function CountdownUnit({ value, label }: CountdownUnitProps) {
 
       <span
         className="text-[10px] font-inter font-semibold uppercase tracking-[0.16em] sm:text-xs md:text-sm"
-        style={{ color: OUTSIDE_TEXT, textShadow: READABLE_SHADOW }}
+        style={{ color: sectionText.label }}
       >
         {label}
       </span>
@@ -246,42 +231,14 @@ export function Countdown() {
   }, [targetTimestamp])
 
   return (
+    <div
+      className={`${theSeasons.variable} ${aboveTheBeyond.variable} relative w-full`}
+      style={{ background: sectionBackground }}
+    >
     <Section
       id="countdown"
-      className={`${theSeasons.variable} ${aboveTheBeyond.variable} relative overflow-hidden py-10 sm:py-12 md:py-16 lg:py-20`}
+      className="relative overflow-hidden py-10 sm:py-12 md:py-16 lg:py-20"
     >
-      {/* Corner florals — matches hero / loading screen */}
-      {/* <div className="pointer-events-none absolute left-0 top-0 z-0">
-        <img
-          src="/decoration/decoration/left-top-decoration.png"
-          alt=""
-          className={CORNER_DECO_CLASS}
-        />
-      </div> */}
-      {/* <div className="pointer-events-none absolute right-0 top-0 z-0">
-        <img
-          src="/decoration/decoration/right-top-decoration.png"
-          alt=""
-          className={CORNER_DECO_CLASS}
-        />
-      </div> */}
-      {/* <div className="pointer-events-none absolute bottom-0 left-0 z-0">
-
-        <img
-          src="/decoration/decoration/left-bottom-decoration.png"
-          alt=""
-          className={CORNER_DECO_CLASS}
-        />
-      </div>
-      <div className="pointer-events-none absolute bottom-0 right-0 z-0">
-
-        <img
-          src="/decoration/decoration/right-bottom-decoration.png"
-          alt=""
-          className={CORNER_DECO_CLASS}
-        />
-      </div> */}
-      
       {/* Monogram - centered at top */}
       <div className="relative flex justify-center pt-8 sm:pt-10 md:pt-12 mb-6 sm:mb-8 md:mb-10 z-10">
         <motion.div
@@ -296,9 +253,6 @@ export function Countdown() {
               alt={`${groomNickname} & ${brideNickname} Monogram`}
               fill
               className="object-contain"
-              style={{
-                filter: "brightness(0) invert(1)",
-              }}
               priority={false}
             />
           </div>
@@ -312,7 +266,7 @@ export function Countdown() {
         </div>
         <CountdownTitle />
         <div className="mt-3 flex items-center justify-center sm:mt-4">
-          <span className="h-px w-16 sm:w-24 md:w-32 bg-white/50" />
+          <span className="h-px w-16 sm:w-24 md:w-32 bg-motif-deep/35" />
         </div>
       </div>
 
@@ -342,7 +296,7 @@ export function Countdown() {
               <div className="w-full max-w-2xl mx-auto">
                 <div
                   className={`${cinzel.className} flex flex-col items-center gap-1.5 font-bold sm:gap-2.5 md:gap-3`}
-                  style={{ color: OUTSIDE_TEXT, textShadow: READABLE_SHADOW }}
+                  style={{ color: sectionText.title }}
                 >
                   {/* Month */}
                   <span className="text-[0.65rem] uppercase tracking-[0.4em] sm:text-xs sm:tracking-[0.5em] md:text-sm">
@@ -353,11 +307,11 @@ export function Countdown() {
                   <div className="flex w-full items-center gap-2 sm:gap-4 md:gap-5">
                     {/* Day of week & divider */}
                     <div className="flex flex-1 items-center justify-end gap-1.5 sm:gap-2.5">
-                      <span className="h-[0.5px] flex-1 bg-white/45" />
+                      <span className="h-[0.5px] flex-1 bg-motif-deep/35" />
                       <span className="text-[0.6rem] uppercase tracking-[0.3em] sm:text-[0.7rem] sm:tracking-[0.4em] md:text-xs">
                         {ceremonyDayShort}
                       </span>
-                      <span className="h-[0.5px] w-6 bg-white/45 sm:w-8 md:w-10" />
+                      <span className="h-[0.5px] w-6 bg-motif-deep/35 sm:w-8 md:w-10" />
                     </div>
 
                     {/* Day number */}
@@ -371,11 +325,11 @@ export function Countdown() {
 
                     {/* Time */}
                     <div className="flex flex-1 items-center gap-1.5 sm:gap-2.5">
-                      <span className="h-[0.5px] w-6 bg-white/45 sm:w-8 md:w-10" />
+                      <span className="h-[0.5px] w-6 bg-motif-deep/35 sm:w-8 md:w-10" />
                       <span className="text-[0.6rem] uppercase tracking-[0.3em] sm:text-[0.7rem] sm:tracking-[0.4em] md:text-xs">
                         {ceremonyTimeDisplay.split(",")[0]}
                       </span>
-                      <span className="h-[0.5px] flex-1 bg-white/45" />
+                      <span className="h-[0.5px] flex-1 bg-motif-deep/35" />
                     </div>
                   </div>
 
@@ -388,5 +342,6 @@ export function Countdown() {
             </div>
       </div>
     </Section>
+    </div>
   )
 }

@@ -4,6 +4,13 @@ import type React from "react"
 import { useSiteConfig } from "@/hooks/use-site-config"
 import type { SiteConfig } from "@/lib/site-config"
 import { layeredSectionTitleSize, sectionType } from "@/lib/section-typography"
+import {
+  sectionBackground,
+  sectionDividerLineStyle,
+  sectionDividerLineStyleLeft,
+  sectionPalette,
+  sectionText,
+} from "@/lib/section-background"
 import { motion } from "motion/react"
 import { Cinzel } from "next/font/google"
 import localFont from "next/font/local"
@@ -26,23 +33,10 @@ const aboveTheBeyond = localFont({
   variable: "--font-above-beyond",
 })
 
-const OUTSIDE_TEXT = "#FFFFFF"
-const OUTSIDE_TEXT_MUTED = "rgba(255, 255, 255, 0.88)"
-const OUTSIDE_TITLE_SHADOW =
-  "0 2px 6px rgba(0, 0, 0, 0.28), 0 0 18px rgba(0, 0, 0, 0.12)"
+const TIMELINE_TEXT = sectionText.title
+const TIMELINE_SVG_STROKE = sectionPalette.forest
 
-const TIMELINE_TEXT = OUTSIDE_TEXT
-const TIMELINE_SVG_STROKE = "#FFFFFF"
-const READABLE_SHADOW = "0 1px 3px rgba(0,0,0,0.55), 0 2px 10px rgba(0,0,0,0.35)"
-const ICON_SHADOW = "drop-shadow(0 2px 6px rgba(0,0,0,0.55)) drop-shadow(0 0 10px rgba(0,0,0,0.35))"
-
-const SECTION_GRADIENT =
-  "linear-gradient(180deg, transparent 0%, color-mix(in srgb, #1a1510 18%, transparent) 18%, color-mix(in srgb, #1a1510 38%, transparent) 50%, color-mix(in srgb, #1a1510 18%, transparent) 82%, transparent 100%)"
-
-const outsideDividerLineStyle = {
-  background:
-    "linear-gradient(to right, transparent, rgba(255, 255, 255, 0.55), transparent)",
-} as const
+const outsideDividerLineStyle = sectionDividerLineStyle
 
 type TimelineIcon = React.ComponentType<React.SVGProps<SVGSVGElement>>
 
@@ -59,14 +53,8 @@ function OutsideDivider() {
   return (
     <div className="flex items-center justify-center gap-1.5">
       <span className="h-px w-6 sm:w-10" style={outsideDividerLineStyle} />
-      <span className="h-0.5 w-0.5 rounded-full bg-white/50 sm:h-1 sm:w-1" aria-hidden />
-      <span
-        className="h-px w-6 sm:w-10"
-        style={{
-          background:
-            "linear-gradient(to left, transparent, rgba(255, 255, 255, 0.55), transparent)",
-        }}
-      />
+      <span className="h-0.5 w-0.5 rounded-full bg-motif-deep/45 sm:h-1 sm:w-1" aria-hidden />
+      <span className="h-px w-6 sm:w-10" style={sectionDividerLineStyleLeft} />
     </div>
   )
 }
@@ -86,8 +74,7 @@ function TimelineTitle() {
         className={`${theSeasons.className} block uppercase leading-[0.78] tracking-[0.08em] min-[400px]:tracking-[0.11em] sm:tracking-[0.13em] md:tracking-[0.14em] pb-1 sm:pb-1.5`}
         style={{
           fontSize: "var(--title-size)",
-          color: OUTSIDE_TEXT,
-          textShadow: OUTSIDE_TITLE_SHADOW,
+          color: sectionText.title,
         }}
       >
         Wedding Timeline
@@ -97,8 +84,7 @@ function TimelineTitle() {
         className={`${aboveTheBeyond.className} mx-auto block w-fit max-w-full px-1 leading-[0.88] sm:leading-[0.9] mt-2 sm:mt-2.5 md:mt-3`}
         style={{
           fontSize: "var(--script-size)",
-          color: OUTSIDE_TEXT_MUTED,
-          textShadow: OUTSIDE_TITLE_SHADOW,
+          color: sectionText.script,
         }}
       >
         Our day, moment by moment
@@ -170,16 +156,14 @@ export function WeddingTimeline() {
   const timelineEvents = buildTimelineEvents(siteConfig)
 
   return (
+    <div
+      className={`${theSeasons.variable} ${aboveTheBeyond.variable} relative w-full`}
+      style={{ background: sectionBackground }}
+    >
     <section
       id="wedding-timeline"
-      className={`${theSeasons.variable} ${aboveTheBeyond.variable} relative z-10 overflow-hidden bg-transparent py-10 sm:py-12 md:py-16 lg:py-20`}
+      className="relative z-10 overflow-hidden py-10 sm:py-12 md:py-16 lg:py-20"
     >
-      {/* Soft dark veil for white text readability over silk */}
-      <div
-        className="pointer-events-none absolute inset-y-0 left-1/2 z-[2] w-screen -translate-x-1/2"
-        aria-hidden
-        style={{ background: SECTION_GRADIENT }}
-      />
 
       {/* Header */}
       <div className="relative z-10 mx-auto mb-8 max-w-5xl px-3 text-center @container/timeline sm:mb-10 sm:px-4 md:mb-12">
@@ -191,12 +175,12 @@ export function WeddingTimeline() {
         </div>
         <p
           className={`font-goudy-italic mx-auto mt-4 max-w-xl px-2 sm:mt-5 md:mt-6 ${sectionType.textRelaxed}`}
-          style={{ color: OUTSIDE_TEXT_MUTED }}
+          style={{ color: sectionText.body }}
         >
           A simple overview of the key moments of our day, from arrival to farewell.
         </p>
         <div className="mt-4 flex items-center justify-center sm:mt-5">
-          <span className="h-px w-16 sm:w-24 md:w-32 bg-white/50" />
+          <span className="h-px w-16 sm:w-24 md:w-32 bg-motif-deep/35" />
         </div>
       </div>
 
@@ -206,7 +190,7 @@ export function WeddingTimeline() {
           className="absolute inset-y-0 left-1/2 z-0 w-[2px] -translate-x-1/2 pointer-events-none sm:w-px opacity-80"
           style={{
             background:
-              "linear-gradient(to bottom, transparent, color-mix(in srgb, var(--color-motif-cream) 60%, transparent), transparent)",
+              "linear-gradient(to bottom, transparent, color-mix(in srgb, var(--color-motif-deep) 35%, transparent), transparent)",
           }}
         />
 
@@ -217,6 +201,7 @@ export function WeddingTimeline() {
         </div>
       </div>
     </section>
+    </div>
   )
 }
 
@@ -243,7 +228,7 @@ function TimelineItem({ event, index }: { event: TimelineEvent; index: number })
             <div
               className="hidden h-px w-10 opacity-70 lg:block"
               style={{
-                backgroundColor: "color-mix(in srgb, var(--color-motif-cream) 65%, transparent)",
+                backgroundColor: "color-mix(in srgb, var(--color-motif-deep) 28%, transparent)",
               }}
             />
           </div>
@@ -258,7 +243,7 @@ function TimelineItem({ event, index }: { event: TimelineEvent; index: number })
             <div
               className="hidden h-px w-10 opacity-70 lg:block"
               style={{
-                backgroundColor: "color-mix(in srgb, var(--color-motif-cream) 65%, transparent)",
+                backgroundColor: "color-mix(in srgb, var(--color-motif-deep) 28%, transparent)",
               }}
             />
             {isEven ? (
@@ -281,7 +266,7 @@ function TimelineItem({ event, index }: { event: TimelineEvent; index: number })
             <div
               className="h-px w-6 opacity-70"
               style={{
-                backgroundColor: "color-mix(in srgb, var(--color-motif-cream) 65%, transparent)",
+                backgroundColor: "color-mix(in srgb, var(--color-motif-deep) 28%, transparent)",
               }}
             />
           </div>
@@ -296,7 +281,7 @@ function TimelineItem({ event, index }: { event: TimelineEvent; index: number })
             <div
               className="h-px w-6 opacity-70"
               style={{
-                backgroundColor: "color-mix(in srgb, var(--color-motif-cream) 65%, transparent)",
+                backgroundColor: "color-mix(in srgb, var(--color-motif-deep) 28%, transparent)",
               }}
             />
             {isEven ? (
@@ -324,21 +309,21 @@ function TimelineText({
     <div className={`max-w-md ${textAlign} ${align === "right" ? "ml-auto" : "mr-auto"}`}>
       <p
         className={`${cinzel.className} ${sectionType.label} tracking-[0.22em] uppercase`}
-        style={{ color: TIMELINE_TEXT, textShadow: READABLE_SHADOW }}
+        style={{ color: TIMELINE_TEXT }}
       >
         {event.title}
       </p>
       <p
-        className={`font-goudy-italic ${sectionType.textSnug} mt-0.5 opacity-95`}
-        style={{ color: TIMELINE_TEXT, textShadow: READABLE_SHADOW }}
+        className={`font-goudy-italic ${sectionType.textSnug} mt-0.5`}
+        style={{ color: sectionText.body }}
       >
         at {event.time}
       </p>
 
       {event.description && (
         <p
-          className={`font-goudy-italic ${sectionType.textRelaxed} mt-1.5 opacity-90`}
-          style={{ color: TIMELINE_TEXT, textShadow: READABLE_SHADOW }}
+          className={`font-goudy-italic ${sectionType.textRelaxed} mt-1.5`}
+          style={{ color: sectionText.body }}
         >
           {event.description}
         </p>
@@ -346,8 +331,8 @@ function TimelineText({
 
       {event.location && (
         <p
-          className={`font-goudy-italic ${sectionType.text} mt-1.5 leading-relaxed opacity-90`}
-          style={{ color: TIMELINE_TEXT, textShadow: READABLE_SHADOW }}
+          className={`font-goudy-italic ${sectionType.text} mt-1.5 leading-relaxed`}
+          style={{ color: sectionText.body }}
         >
           {event.location}
         </p>
@@ -375,7 +360,7 @@ function IconMark({
         className={`${
           mobile ? "h-16 w-16" : "h-18 w-18 lg:h-22 lg:w-22"
         } object-contain`}
-        style={{ filter: `${ICON_SHADOW} brightness(0) invert(1)` }}
+        style={{ filter: "drop-shadow(0 2px 4px color-mix(in srgb, var(--color-motif-deep) 18%, transparent))" }}
       />
     )
   }
@@ -384,10 +369,9 @@ function IconMark({
     <div
       className={`${
         mobile ? "h-14 w-14" : "h-16 w-16 lg:h-18 lg:w-18"
-      } flex items-center justify-center rounded-full border bg-white/15`}
+      } flex items-center justify-center rounded-full border bg-[var(--color-welcome-bg)]`}
       style={{
-        borderColor: "color-mix(in srgb, var(--color-motif-cream) 45%, transparent)",
-        filter: ICON_SHADOW,
+        borderColor: "color-mix(in srgb, var(--color-motif-deep) 20%, transparent)",
       }}
     >
       <Icon

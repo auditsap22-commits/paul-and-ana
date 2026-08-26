@@ -40,7 +40,7 @@ export const siteConfig = {
   },
   details: {
     rsvp: {
-      deadline: "October 30, 2026",
+      deadline: "October 6, 2026",
       coordinator: "Ana / Paul",
       phone: "to be announced",
     },

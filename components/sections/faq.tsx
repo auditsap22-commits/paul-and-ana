@@ -25,9 +25,6 @@ const aboveTheBeyond = localFont({
   variable: "--font-above-beyond",
 })
 
-const CORNER_DECO_CLASS =
-  "block h-auto w-auto max-w-[88px] sm:max-w-[108px] md:max-w-[124px] lg:max-w-[140px]"
-
 const C = {
   forest: "#5d6f47",
   sage: "#949981",
@@ -231,7 +228,7 @@ function getFaqItems(siteConfig: SiteConfig): FAQItem[] {
     {
       question: "Can I bring my child to the event?",
       answer:
-        "We kindly request that our wedding be an adults-only celebration, other than the children who are part of the entourage. We hope this allows everyone to relax and fully enjoy the day with us.",
+        "We kindly request that our wedding be an adults only celebration, other than the children who are part of the entourage. We hope this allows everyone to relax and fully enjoy the day with us.",
     },
     {
       question:
@@ -319,40 +316,6 @@ export function FAQ() {
       className={`${theSeasons.variable} ${aboveTheBeyond.variable} relative z-10 isolate overflow-hidden pt-8 pb-8 sm:pt-10 sm:pb-10 md:pt-12 md:pb-12 lg:pt-14 lg:pb-14`}
       style={{ background: creamWash }}
     >
-      {/* Corner decorations */}
-      <div className="pointer-events-none absolute left-0 top-0 z-10">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/decoration/left-top-corner.png"
-          alt=""
-          className={CORNER_DECO_CLASS}
-        />
-      </div>
-      <div className="pointer-events-none absolute right-0 top-0 z-10">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/decoration/right-top-corner.png"
-          alt=""
-          className={CORNER_DECO_CLASS}
-        />
-      </div>
-      <div className="pointer-events-none absolute bottom-0 left-0 z-10">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/decoration/left-bottom-corner.png"
-          alt=""
-          className={CORNER_DECO_CLASS}
-        />
-      </div>
-      <div className="pointer-events-none absolute bottom-0 right-0 z-10">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/decoration/right-bottom-corner.png"
-          alt=""
-          className={CORNER_DECO_CLASS}
-        />
-      </div>
-
       {/* Header */}
       <div className="relative z-20 mx-auto max-w-5xl px-6 text-center @container/faq sm:px-10 md:px-12">
         <div className="mx-auto mb-5 sm:mb-6 md:mb-7">

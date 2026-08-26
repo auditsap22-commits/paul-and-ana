@@ -1,0 +1,356 @@
+/* Love story — scrapbook roadmap */
+
+.love-story-section {
+  --ls-forest: var(--color-motif-deep, #5d6f47);
+  --ls-cream: var(--color-motif-cream, #f7f3e9);
+  --ls-ink: var(--color-welcome-text, #3a3128);
+}
+
+.love-story-timeline__track {
+  position: relative;
+  width: 100%;
+  min-height: 34rem;
+}
+
+@media (min-width: 1024px) {
+  .love-story-timeline__track {
+    min-height: 42rem;
+  }
+}
+
+.love-story-timeline__path {
+  fill: none;
+  stroke: var(--ls-forest);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.love-story-timeline__path-glow {
+  stroke-width: 12;
+  opacity: 0.06;
+  stroke-dasharray: none;
+}
+
+.love-story-timeline__path-bg {
+  stroke-width: 2.5;
+  opacity: 0.22;
+}
+
+.love-story-timeline__path-active {
+  stroke-width: 2.5;
+}
+
+.love-story-timeline__dot {
+  fill: var(--ls-forest);
+  stroke: color-mix(in srgb, var(--ls-cream) 88%, white);
+  stroke-width: 2.5;
+  filter: drop-shadow(0 1px 3px color-mix(in srgb, var(--ls-forest) 35%, transparent));
+}
+
+/* Polaroid — matches reference sample */
+.love-story-polaroid {
+  position: relative;
+  flex-shrink: 0;
+  background: #fff;
+  padding: 0.55rem 0.55rem 0.55rem;
+  box-shadow:
+    0 8px 22px color-mix(in srgb, var(--ls-ink) 12%, transparent),
+    0 2px 6px color-mix(in srgb, var(--ls-ink) 8%, transparent);
+}
+
+.love-story-polaroid--sm {
+  width: 7.5rem;
+}
+
+.love-story-polaroid--md {
+  width: 9.75rem;
+}
+
+@media (min-width: 768px) {
+  .love-story-polaroid--sm {
+    width: 8.75rem;
+  }
+
+  .love-story-polaroid--md {
+    width: 11.25rem;
+  }
+}
+
+.love-story-polaroid__photo {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: #ece8df;
+}
+
+.love-story-polaroid__caption-wrap {
+  min-height: 1.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem 0.25rem 0.15rem;
+}
+
+.love-story-polaroid__caption {
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-above-beyond), cursive;
+  font-size: clamp(0.82rem, 2.8vw, 0.98rem);
+  line-height: 1.1;
+  color: var(--ls-forest);
+}
+
+.love-story-pin {
+  position: absolute;
+  top: -0.4rem;
+  left: 50%;
+  z-index: 3;
+  width: 0.78rem;
+  height: 0.78rem;
+  border-radius: 50%;
+  transform: translateX(-50%);
+  box-shadow:
+    inset 0 1px 2px rgba(255, 255, 255, 0.5),
+    0 2px 5px rgba(0, 0, 0, 0.24);
+}
+
+.love-story-pin--red {
+  background: radial-gradient(circle at 35% 28%, #ef6464, #b82e2e);
+}
+
+.love-story-pin--white {
+  background: radial-gradient(circle at 35% 28%, #fff, #cfcbc3);
+}
+
+.love-story-tape {
+  position: absolute;
+  top: -0.62rem;
+  left: 50%;
+  z-index: 3;
+  width: 3.75rem;
+  height: 1.15rem;
+  transform: translateX(-50%) rotate(-5deg);
+  background: color-mix(in srgb, #d9c9ad 78%, transparent);
+  border: 1px solid color-mix(in srgb, #b8a88c 30%, transparent);
+  opacity: 0.9;
+}
+
+.love-story-year {
+  font-family: var(--font-above-beyond), cursive;
+  font-size: clamp(1.45rem, 4.8vw, 2rem);
+  line-height: 1;
+  color: var(--ls-forest);
+  white-space: nowrap;
+}
+
+.love-story-year--badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.65rem;
+  height: 2.65rem;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--ls-forest) 7%, white);
+}
+
+.love-story-milestone {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.love-story-polaroid-stack {
+  display: flex;
+  align-items: flex-start;
+}
+
+.love-story-polaroid-stack .love-story-polaroid:nth-child(2) {
+  margin-left: -1.35rem;
+  margin-top: 1.1rem;
+}
+
+.love-story-church-milestone {
+  position: relative;
+  align-items: flex-start;
+  gap: 0;
+}
+
+.love-story-church-scene {
+  position: relative;
+  width: min(14rem, 58vw);
+  line-height: 0;
+}
+
+@media (min-width: 768px) {
+  .love-story-church-scene {
+    width: min(16rem, 16vw);
+  }
+}
+
+.love-story-church-date {
+  position: absolute;
+  top: 8%;
+  left: 28%;
+  z-index: 2;
+  font-family: var(--font-above-beyond), cursive;
+  font-size: clamp(1.25rem, 3.8vw, 1.85rem);
+  line-height: 1;
+  color: var(--ls-forest);
+  transform: rotate(-22deg);
+  transform-origin: left center;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+  text-shadow: 0 1px 0 color-mix(in srgb, var(--ls-cream) 70%, transparent);
+}
+
+@media (min-width: 768px) {
+  .love-story-church-date {
+    top: 6%;
+    left: 30%;
+    font-size: clamp(1.4rem, 2vw, 1.9rem);
+    transform: rotate(-20deg);
+  }
+}
+
+.love-story-church-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 10px color-mix(in srgb, var(--ls-forest) 12%, transparent));
+}
+
+/* Mobile — serpentine animated roadmap */
+.love-story-timeline__mobile {
+  position: relative;
+  width: 100%;
+  max-width: 26rem;
+  margin-inline: auto;
+  aspect-ratio: 360 / 860;
+  padding: 0 0.5rem;
+}
+
+.love-story-timeline__mobile-path {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.love-story-timeline__mobile-milestone {
+  position: absolute;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  max-width: 11.5rem;
+}
+
+.love-story-timeline__mobile-milestone--2016 {
+  left: 2%;
+  top: 1%;
+  max-width: 13rem;
+}
+
+.love-story-timeline__mobile-milestone--2020 {
+  right: 2%;
+  top: 21%;
+  max-width: 11rem;
+}
+
+.love-story-timeline__mobile-milestone--2024 {
+  left: 50%;
+  top: 52%;
+  transform: translateX(-50%);
+  max-width: 10.5rem;
+}
+
+.love-story-timeline__mobile-milestone--2026 {
+  left: 0;
+  bottom: 0;
+  max-width: 14.5rem;
+}
+
+@media (max-width: 767px) {
+  .love-story-timeline__path-bg {
+    stroke-width: 2.75;
+    opacity: 0.3;
+  }
+
+  .love-story-timeline__path-active {
+    stroke-width: 2.75;
+  }
+
+  .love-story-timeline__dot {
+    stroke-width: 3;
+  }
+}
+
+.love-story-timeline__desktop {
+  display: none;
+}
+
+.love-story-timeline__desktop-path {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@media (min-width: 768px) {
+  .love-story-timeline__mobile {
+    display: none;
+  }
+
+  .love-story-timeline__desktop {
+    display: block;
+  }
+
+  .love-story-milestone--2016 {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 2;
+    align-items: flex-start;
+  }
+
+  .love-story-milestone--2020 {
+    position: absolute;
+    right: 0;
+    top: 6%;
+    z-index: 2;
+  }
+
+  .love-story-milestone--2024 {
+    position: absolute;
+    left: 50%;
+    bottom: 6%;
+    z-index: 2;
+    transform: translateX(-50%);
+  }
+
+  .love-story-milestone--2026 {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 2;
+    align-items: flex-start;
+  }
+}
+
+.love-story-narrative p + p {
+  margin-top: 1.15rem;
+}
+
+@media (min-width: 640px) {
+  .love-story-narrative p + p {
+    margin-top: 1.35rem;
+  }
+}

@@ -6,6 +6,12 @@ import { useAudio } from "@/contexts/audio-context"
 import { Cinzel } from "next/font/google"
 import localFont from "next/font/local"
 import { Music2 } from "lucide-react"
+import {
+  sectionBackground,
+  sectionDividerLineStyle,
+  sectionDividerLineStyleLeft,
+  sectionText,
+} from "@/lib/section-background"
 
 interface SpotifyPlaybackUpdate {
   playingURI: string
@@ -97,19 +103,11 @@ const aboveTheBeyond = localFont({
   variable: "--font-above-beyond",
 })
 
-const OUTSIDE_TEXT = "#FFFFFF"
-const OUTSIDE_TEXT_MUTED = "rgba(255, 255, 255, 0.88)"
-const OUTSIDE_TITLE_SHADOW =
-  "0 2px 6px rgba(0, 0, 0, 0.28), 0 0 18px rgba(0, 0, 0, 0.12)"
-
 const palette = {
-  heading: "var(--color-welcome-navy)",
+  heading: sectionText.heading,
 } as const
 
-const outsideDividerLineStyle = {
-  background:
-    "linear-gradient(to right, transparent, rgba(255, 255, 255, 0.55), transparent)",
-} as const
+const outsideDividerLineStyle = sectionDividerLineStyle
 
 const ct = {
   body: "text-xs sm:text-sm md:text-base",
@@ -130,14 +128,8 @@ function OutsideDivider() {
   return (
     <div className="flex items-center justify-center gap-1.5">
       <span className="h-px w-6 sm:w-10" style={outsideDividerLineStyle} />
-      <span className="h-0.5 w-0.5 rounded-full bg-white/50 sm:h-1 sm:w-1" aria-hidden />
-      <span
-        className="h-px w-6 sm:w-10"
-        style={{
-          background:
-            "linear-gradient(to left, transparent, rgba(255, 255, 255, 0.55), transparent)",
-        }}
-      />
+      <span className="h-0.5 w-0.5 rounded-full bg-motif-deep/45 sm:h-1 sm:w-1" aria-hidden />
+      <span className="h-px w-6 sm:w-10" style={sectionDividerLineStyleLeft} />
     </div>
   )
 }
@@ -157,8 +149,7 @@ function PlaylistTitle({ title, script }: { title: string; script: string }) {
         className={`${theSeasons.className} block uppercase leading-[0.78] tracking-[0.08em] min-[400px]:tracking-[0.11em] sm:tracking-[0.15em] md:tracking-[0.18em] pb-1 sm:pb-1.5`}
         style={{
           fontSize: "var(--title-size)",
-          color: OUTSIDE_TEXT,
-          textShadow: OUTSIDE_TITLE_SHADOW,
+          color: sectionText.title,
         }}
       >
         {title}
@@ -168,8 +159,7 @@ function PlaylistTitle({ title, script }: { title: string; script: string }) {
         className={`${aboveTheBeyond.className} mx-auto block w-fit max-w-full px-1 leading-[0.88] sm:leading-[0.9] mt-2 sm:mt-2.5 md:mt-3`}
         style={{
           fontSize: "var(--script-size)",
-          color: OUTSIDE_TEXT_MUTED,
-          textShadow: OUTSIDE_TITLE_SHADOW,
+          color: sectionText.script,
         }}
       >
         {script}
@@ -247,9 +237,13 @@ export function WeddingPlaylist() {
   }, [pauseMusic, resumeMusic, spotifyUri])
 
   return (
+    <div
+      className={`${theSeasons.variable} ${aboveTheBeyond.variable} relative w-full`}
+      style={{ background: sectionBackground }}
+    >
     <section
       id="playlist"
-      className={`${theSeasons.variable} ${aboveTheBeyond.variable} relative z-10 bg-transparent pt-8 pb-8 sm:pt-10 sm:pb-10 md:pt-12 md:pb-12 lg:pt-14 lg:pb-14`}
+      className="relative z-10 pt-8 pb-8 sm:pt-10 sm:pb-10 md:pt-12 md:pb-12 lg:pt-14 lg:pb-14"
     >
       <div className="relative z-20 mx-auto max-w-3xl px-4 sm:px-6 md:px-8">
         {/* Header — outside container, white on silk */}
@@ -262,12 +256,12 @@ export function WeddingPlaylist() {
           </div>
           <p
             className={`font-goudy-italic ${ct.bodyLg} mx-auto mt-4 max-w-lg leading-relaxed px-2 sm:mt-5 md:mt-6`}
-            style={{ color: OUTSIDE_TEXT_MUTED }}
+            style={{ color: sectionText.body }}
           >
             {subtitle}
           </p>
           <div className="flex items-center justify-center pt-3 sm:pt-4">
-            <span className="h-px w-16 sm:w-24 md:w-32 bg-white/50" />
+            <span className="h-px w-16 sm:w-24 md:w-32 bg-motif-deep/35" />
           </div>
         </div>
 
@@ -328,5 +322,6 @@ export function WeddingPlaylist() {
         </div>
       </div>
     </section>
+    </div>
   )
 }
