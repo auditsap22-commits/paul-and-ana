@@ -247,9 +247,9 @@ export default function Home() {
               <Gallery />
               {/* <VideoMessage /> // Video Message is not available yet
               <Messages /> */}        
-              {/* <Accommodation /> */}
-              {/* <GuestInformation /> */}
-              <GuestList />
+       
+              {/* <GuestInformation /> */} 
+              <GuestList /> 
               {/* <BookOfGuests /> */}
               {/* <PrincipalSponsors /> */}
               <WeddingPlaylist />
