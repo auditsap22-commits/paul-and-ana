@@ -240,24 +240,22 @@ export default function Home() {
               <Welcome />
                {/* <CoupleVideo />  */}
               <LoveStory />
-              <Countdown />
-              <Gallery />
-              <VideoMessage />
-              <Messages />
+              {/* <Countdown /> */}
+              <Entourage />
+              <WeddingTimeline />
               <Details />
+              <Gallery />
+              {/* <VideoMessage />
+              <Messages /> */}        
               {/* <Accommodation /> */}
               {/* <GuestInformation /> */}
-              <WeddingTimeline />
-              <Entourage />
               <GuestList />
               <BookOfGuests />
-      
               {/* <PrincipalSponsors /> */}
               <WeddingPlaylist />
               <FAQ />
               <Registry />
               <SnapShare />
-
               <Footer />
               </motion.div>
             </div>
