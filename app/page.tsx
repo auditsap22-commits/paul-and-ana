@@ -245,12 +245,12 @@ export default function Home() {
               <WeddingTimeline />
               <Details />
               <Gallery />
-              {/* <VideoMessage />
+              {/* <VideoMessage /> // Video Message is not available yet
               <Messages /> */}        
               {/* <Accommodation /> */}
               {/* <GuestInformation /> */}
               <GuestList />
-              <BookOfGuests />
+              {/* <BookOfGuests /> */}
               {/* <PrincipalSponsors /> */}
               <WeddingPlaylist />
               <FAQ />
