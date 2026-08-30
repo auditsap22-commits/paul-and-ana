@@ -150,12 +150,6 @@ export function Footer() {
   const siteConfig = useSiteConfig()
   const year = new Date().getFullYear()
   const ceremonyDate = siteConfig.ceremony.date
-  const ceremonyTime = siteConfig.ceremony.time
-  const ceremonyVenue = siteConfig.ceremony.location
-  const ceremonyAddress = siteConfig.ceremony.venue
-  const receptionVenue = siteConfig.reception.location
-  const receptionAddress = siteConfig.reception.venue
-  const receptionTime = siteConfig.reception.time
 
   const groomName = siteConfig.couple.groomNickname || siteConfig.couple.groom
   const brideName = siteConfig.couple.brideNickname || siteConfig.couple.bride
@@ -325,41 +319,8 @@ export function Footer() {
               </FooterCard>
             </motion.div>
 
-            {/* Event details — ceremony and reception always separate */}
+            {/* RSVP + event info */}
             <motion.div className="space-y-4 sm:space-y-5 min-w-0" variants={fadeInUp}>
-              <FooterCard>
-                <h4
-                  className={`${cinzel.className} ${ct.cardTitle} font-semibold mb-3`}
-                  style={{ color: palette.heading }}
-                >
-                  Ceremony
-                </h4>
-                <div className="space-y-3">
-                  <DetailRow label="Venue" value={ceremonyVenue} />
-                  {ceremonyAddress && ceremonyAddress !== ceremonyVenue && (
-                    <DetailRow label="Address" value={ceremonyAddress} />
-                  )}
-                  <DetailRow label="Assembly Time" value={siteConfig.ceremony.guestsTime} />
-                  <DetailRow label="Wedding Starts" value={ceremonyTime} />
-                </div>
-              </FooterCard>
-
-              <FooterCard>
-                <h4
-                  className={`${cinzel.className} ${ct.cardTitle} font-semibold mb-3`}
-                  style={{ color: palette.heading }}
-                >
-                  Reception
-                </h4>
-                <div className="space-y-3">
-                  <DetailRow label="Venue" value={receptionVenue} />
-                  {receptionAddress && receptionAddress !== receptionVenue && (
-                    <DetailRow label="Address" value={receptionAddress} />
-                  )}
-                  <DetailRow label="Time" value={receptionTime} />
-                </div>
-              </FooterCard>
-
               <FooterCard>
                 <h4 className={`${cinzel.className} ${ct.cardTitle} font-semibold mb-3`} style={{ color: palette.heading }}>
                   RSVP Deadline

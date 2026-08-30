@@ -28,12 +28,17 @@ interface HeroProps {
   enterFromLoading?: boolean;
 }
 
-const POLAROID_PHOTOS = [
+const DESKTOP_POLAROID_PHOTOS = [
   { src: '/envelope/box (1).JPG', side: 'left' as const },
   { src: '/envelope/box (5).JPG', side: 'center' as const },
   { src: '/envelope/box (4).JPG', side: 'right' as const },
   { src: '/envelope/box (3).JPG', side: 'right-inner' as const },
 ];
+
+const MOBILE_ENVELOPE_PHOTOS = [
+  { src: '/envelope/left.jpg', side: 'left' as const },
+  { src: '/envelope/right.jpg', side: 'right' as const },
+] as const;
 
 const photoInteractEase: Transition = { duration: 0.38, ease: [0.22, 1, 0.36, 1] };
 const focusLiftEase: Transition = { duration: 1.15, ease: [0.22, 1, 0.36, 1] };
@@ -366,6 +371,24 @@ export const Hero: React.FC<HeroProps> = ({
     exit: { y: '-18%', x: '108%', rotate: 16, scale: 0.72, opacity: 0, zIndex: 10 },
   };
 
+  const mobileEnvelopePhotoLeftVariants: Variants = {
+    hidden: { y: '58%', x: '6%', rotate: -1, scale: 0.72, opacity: 0, zIndex: 12 },
+    emerge: { y: '0%', x: '-8%', rotate: -4, scale: 1, opacity: 1, zIndex: 16 },
+    hover: { y: '-6%', x: '-8%', rotate: -4.5, scale: 1.05, opacity: 1, zIndex: 26 },
+    press: { y: '-3%', x: '-8%', rotate: -4.2, scale: 1.02, opacity: 1, zIndex: 24 },
+    lifted: { y: '-12%', x: '-8%', rotate: -4.5, scale: 1.08, opacity: 1, zIndex: 30 },
+    exit: { y: '-18%', x: '-108%', rotate: -24, scale: 0.68, opacity: 0, zIndex: 10 },
+  };
+
+  const mobileEnvelopePhotoRightVariants: Variants = {
+    hidden: { y: '58%', x: '-6%', rotate: 1, scale: 0.72, opacity: 0, zIndex: 12 },
+    emerge: { y: '0%', x: '8%', rotate: 4, scale: 1, opacity: 1, zIndex: 16 },
+    hover: { y: '-6%', x: '8%', rotate: 4.5, scale: 1.05, opacity: 1, zIndex: 26 },
+    press: { y: '-3%', x: '8%', rotate: 4.2, scale: 1.02, opacity: 1, zIndex: 24 },
+    lifted: { y: '-12%', x: '8%', rotate: 4.5, scale: 1.08, opacity: 1, zIndex: 30 },
+    exit: { y: '-18%', x: '108%', rotate: 24, scale: 0.68, opacity: 0, zIndex: 10 },
+  };
+
   const revealCopyContainerVariants: Variants = {
     hidden: {},
     visible: {
@@ -628,58 +651,93 @@ export const Hero: React.FC<HeroProps> = ({
                   </motion.div>
 
                   <div className="env-invite-photos-emerge">
-                    <PolaroidPhoto
-                      side="left"
-                      src={POLAROID_PHOTOS[0].src}
-                      alt={coupleNames}
-                      variants={photoLeftVariants}
-                      photoState={photoState}
-                      liftedPhoto={liftedPhoto}
-                      onToggle={toggleLiftedPhoto}
-                      interactive={photosInteractive}
-                      emergenceDelay={0.55}
-                      reduceMotion={reduceMotion}
-                      isExiting={isExiting}
-                    />
-                    <PolaroidPhoto
-                      side="center"
-                      src={POLAROID_PHOTOS[1].src}
-                      alt={coupleNames}
-                      variants={photoCenterVariants}
-                      photoState={photoState}
-                      liftedPhoto={liftedPhoto}
-                      onToggle={toggleLiftedPhoto}
-                      interactive={photosInteractive}
-                      emergenceDelay={1.0}
-                      reduceMotion={reduceMotion}
-                      isExiting={isExiting}
-                    />
-                    <PolaroidPhoto
-                      side="right"
-                      src={POLAROID_PHOTOS[2].src}
-                      alt={coupleNames}
-                      variants={photoRightVariants}
-                      photoState={photoState}
-                      liftedPhoto={liftedPhoto}
-                      onToggle={toggleLiftedPhoto}
-                      interactive={photosInteractive}
-                      emergenceDelay={1.45}
-                      reduceMotion={reduceMotion}
-                      isExiting={isExiting}
-                    />
-                    <PolaroidPhoto
-                      side="right-inner"
-                      src={POLAROID_PHOTOS[3].src}
-                      alt={coupleNames}
-                      variants={photoRightInnerVariants}
-                      photoState={photoState}
-                      liftedPhoto={liftedPhoto}
-                      onToggle={toggleLiftedPhoto}
-                      interactive={photosInteractive}
-                      emergenceDelay={1.7}
-                      reduceMotion={reduceMotion}
-                      isExiting={isExiting}
-                    />
+                    {isMobileViewport ? (
+                      <>
+                        <PolaroidPhoto
+                          side="left"
+                          src={MOBILE_ENVELOPE_PHOTOS[0].src}
+                          alt={`${groomName} portrait`}
+                          variants={mobileEnvelopePhotoLeftVariants}
+                          photoState={photoState}
+                          liftedPhoto={liftedPhoto}
+                          onToggle={toggleLiftedPhoto}
+                          interactive={photosInteractive}
+                          emergenceDelay={0.55}
+                          reduceMotion={reduceMotion}
+                          isExiting={isExiting}
+                          envelopePair
+                        />
+                        <PolaroidPhoto
+                          side="right"
+                          src={MOBILE_ENVELOPE_PHOTOS[1].src}
+                          alt={`${brideName} portrait`}
+                          variants={mobileEnvelopePhotoRightVariants}
+                          photoState={photoState}
+                          liftedPhoto={liftedPhoto}
+                          onToggle={toggleLiftedPhoto}
+                          interactive={photosInteractive}
+                          emergenceDelay={1.0}
+                          reduceMotion={reduceMotion}
+                          isExiting={isExiting}
+                          envelopePair
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <PolaroidPhoto
+                          side="left"
+                          src={DESKTOP_POLAROID_PHOTOS[0].src}
+                          alt={coupleNames}
+                          variants={photoLeftVariants}
+                          photoState={photoState}
+                          liftedPhoto={liftedPhoto}
+                          onToggle={toggleLiftedPhoto}
+                          interactive={photosInteractive}
+                          emergenceDelay={0.55}
+                          reduceMotion={reduceMotion}
+                          isExiting={isExiting}
+                        />
+                        <PolaroidPhoto
+                          side="center"
+                          src={DESKTOP_POLAROID_PHOTOS[1].src}
+                          alt={coupleNames}
+                          variants={photoCenterVariants}
+                          photoState={photoState}
+                          liftedPhoto={liftedPhoto}
+                          onToggle={toggleLiftedPhoto}
+                          interactive={photosInteractive}
+                          emergenceDelay={1.0}
+                          reduceMotion={reduceMotion}
+                          isExiting={isExiting}
+                        />
+                        <PolaroidPhoto
+                          side="right"
+                          src={DESKTOP_POLAROID_PHOTOS[2].src}
+                          alt={coupleNames}
+                          variants={photoRightVariants}
+                          photoState={photoState}
+                          liftedPhoto={liftedPhoto}
+                          onToggle={toggleLiftedPhoto}
+                          interactive={photosInteractive}
+                          emergenceDelay={1.45}
+                          reduceMotion={reduceMotion}
+                          isExiting={isExiting}
+                        />
+                        <PolaroidPhoto
+                          side="right-inner"
+                          src={DESKTOP_POLAROID_PHOTOS[3].src}
+                          alt={coupleNames}
+                          variants={photoRightInnerVariants}
+                          photoState={photoState}
+                          liftedPhoto={liftedPhoto}
+                          onToggle={toggleLiftedPhoto}
+                          interactive={photosInteractive}
+                          emergenceDelay={1.7}
+                          reduceMotion={reduceMotion}
+                          isExiting={isExiting}
+                        />
+                      </>
+                    )}
                   </div>
                 </div>
               </div>
@@ -742,21 +800,21 @@ export const Hero: React.FC<HeroProps> = ({
                 >
                   <defs>
                     <radialGradient id={sealWaxGrad} cx="32%" cy="26%" r="78%">
-                      <stop offset="0%" stopColor="#E8F08A" />
-                      <stop offset="28%" stopColor="#D4E266" />
-                      <stop offset="58%" stopColor="#C8D65E" />
-                      <stop offset="82%" stopColor="#A9BB48" />
-                      <stop offset="100%" stopColor="#87983A" />
+                      <stop offset="0%" stopColor="var(--env-seal-light)" />
+                      <stop offset="28%" stopColor="#E8D070" />
+                      <stop offset="58%" stopColor="var(--env-seal-gold)" />
+                      <stop offset="82%" stopColor="var(--env-seal-mid)" />
+                      <stop offset="100%" stopColor="var(--env-seal-deep)" />
                     </radialGradient>
                     <radialGradient id={sealFaceGrad} cx="50%" cy="36%" r="68%">
-                      <stop offset="0%" stopColor="#E4EE8A" />
-                      <stop offset="42%" stopColor="#C8D65E" />
-                      <stop offset="100%" stopColor="#A9BB48" />
+                      <stop offset="0%" stopColor="#F5E6A8" />
+                      <stop offset="42%" stopColor="var(--env-seal-gold)" />
+                      <stop offset="100%" stopColor="var(--env-seal-mid)" />
                     </radialGradient>
                     <radialGradient id={`${sealId}-rim`} cx="38%" cy="30%" r="70%">
-                      <stop offset="0%" stopColor="#DDE88A" />
-                      <stop offset="45%" stopColor="#C8D65E" />
-                      <stop offset="100%" stopColor="#8A9A38" />
+                      <stop offset="0%" stopColor="#EDD878" />
+                      <stop offset="45%" stopColor="var(--env-seal-gold)" />
+                      <stop offset="100%" stopColor="var(--env-seal-deep)" />
                     </radialGradient>
                     <filter id={sealSoftFilter} x="-30%" y="-30%" width="160%" height="160%">
                       <feDropShadow dx="0" dy="2.2" stdDeviation="1.6" floodColor="#1a2218" floodOpacity="0.35" />
@@ -1043,6 +1101,7 @@ interface PolaroidPhotoProps {
   emergenceDelay: number;
   reduceMotion: boolean | null;
   isExiting?: boolean;
+  envelopePair?: boolean;
 }
 
 const PHOTO_EXIT_DELAY: Record<PhotoSide, number> = {
@@ -1064,6 +1123,7 @@ function PolaroidPhoto({
   emergenceDelay,
   reduceMotion,
   isExiting = false,
+  envelopePair = false,
 }: PolaroidPhotoProps) {
   const canInteract = interactive && !reduceMotion && !isExiting;
 
@@ -1078,7 +1138,7 @@ function PolaroidPhoto({
   return (
     <motion.button
       type="button"
-      className={`env-invite-polaroid env-invite-polaroid--${side}${liftedPhoto === side ? ' is-lifted' : ''}`}
+      className={`env-invite-polaroid env-invite-polaroid--${side}${liftedPhoto === side ? ' is-lifted' : ''}${envelopePair ? ' env-invite-polaroid--envelope-pair' : ''}`}
       variants={variants}
       initial="hidden"
       animate={animateState}
@@ -1109,7 +1169,7 @@ function PolaroidPhoto({
           alt={alt}
           fill
           className="object-cover env-invite-polaroid-img"
-          sizes="(min-width: 768px) 310px, 140px"
+          sizes={envelopePair ? '(max-width: 767px) 42vw, 140px' : '(min-width: 768px) 310px, 140px'}
           priority
         />
       </div>

@@ -100,49 +100,35 @@ function buildTimelineEvents(siteConfig: SiteConfig): TimelineEvent[] {
 
   return [
     {
-      time: siteConfig.ceremony.guestsTime,
-      title: "Assembly",
+      time: "11:30 AM",
+      title: "Departure from St. Benedict",
       location: ceremonyVenue,
       icon: GuestsIcon,
       imageSrc: "/weddingtimeline/arrivalimage.png",
     },
     {
-      time: siteConfig.ceremony.time,
-      title: "Processional",
-      location: ceremonyVenue,
-      icon: RingsIcon,
-      imageSrc: "/weddingtimeline/WeddingCeremony.png",
-    },
-    {
-      time: "10:00 AM",
-      title: "Photos",
-      location: ceremonyVenue,
-      icon: RingsIcon,
-      imageSrc: "/weddingtimeline/PhotoSession.png",
-    },
-    {
-      time: "11:00 AM",
+      time: "12:00 PM",
       title: "Cocktail Hour",
       location: receptionVenue,
       icon: CocktailIcon,
       imageSrc: "/weddingtimeline/CockTailHour.png",
     },
     {
-      time: siteConfig.reception.time,
-      title: "Reception",
+      time: "1:00 PM",
+      title: "Start of Program",
       location: receptionVenue,
-      icon: DinnerIcon,
+      icon: FireworksIcon,
       imageSrc: "/weddingtimeline/reception welcom.png",
     },
     {
-      time: "1:00 PM",
-      title: "Dinner",
+      time: "2:30 PM",
+      title: "Lunch",
       location: receptionVenue,
       icon: DinnerIcon,
       imageSrc: "/weddingtimeline/DinnerService.png",
     },
     {
-      time: "2:30 PM",
+      time: "4:30 PM",
       title: "End of Program",
       location: receptionVenue,
       icon: DanceIcon,
@@ -391,17 +377,6 @@ function GuestsIcon(props: React.SVGProps<SVGSVGElement>) {
       <path d="M21 16a3.5 3.5 0 1 0-3.5-3.5A3.5 3.5 0 0 0 21 16Z" />
       <path d="M4 24.5c1.2-3 3.9-4.5 7-4.5s5.8 1.5 7 4.5" />
       <path d="M17.5 19.5A6 6 0 0 1 26 24" />
-    </svg>
-  )
-}
-
-function RingsIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 32 32" fill="none" stroke={iconStroke} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" {...props}>
-      <circle cx="12" cy="20" r="6" />
-      <circle cx="20" cy="20" r="6" />
-      <path d="M14 9 16 5l2 4" />
-      <path d="M13 7h6" />
     </svg>
   )
 }

@@ -228,7 +228,7 @@ function getFaqItems(siteConfig: SiteConfig): FAQItem[] {
     {
       question: "Can I bring my child to the event?",
       answer:
-        "We kindly request that our wedding be an adults only celebration, other than the children who are part of the entourage. We hope this allows everyone to relax and fully enjoy the day with us.",
+        "If your invitation includes your child or children, they are warmly welcome to celebrate with us. Please RSVP with the correct number of guests in your party so we can prepare accordingly.",
     },
     {
       question:
@@ -254,12 +254,12 @@ function getFaqItems(siteConfig: SiteConfig): FAQItem[] {
     {
       question: "Will the ceremony be unplugged?",
       answer:
-        "Yes. The greatest gift you can give us during our ceremony is your presence. Guests may take a few photos, but we kindly ask that it be kept minimal so our official photographers can capture every moment. We promise to share the photos with you afterward.",
+        "Yes. Your presence at our wedding is the greatest gift of all. As we say \"I do,\" we kindly ask that you refrain from taking photos or videos during the ceremony and keep all devices tucked away. Be fully present, share in our joy, and leave the capturing of memories to our professional photographers.",
     },
     {
       question: "Can I take photos or videos during the reception?",
       answer:
-        "Yes. While our ceremony will be mostly unplugged, we would love for you to capture the joy throughout the reception. We prepared this celebration wholeheartedly and we want everyone to enjoy it fully.",
+        "Yes. We would love for you to capture the joy throughout the reception. We prepared this celebration wholeheartedly and we want everyone to enjoy it fully.",
     },
     {
       question: "When is the appropriate time to leave?",

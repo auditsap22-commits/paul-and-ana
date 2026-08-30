@@ -407,8 +407,8 @@ export function Messages() {
           </div>
         </div>
 
-        {/* Message wall */}
-        <div className="relative mx-auto max-w-4xl pb-2 sm:pb-3">
+     
+        {/* <div className="relative mx-auto max-w-4xl pb-2 sm:pb-3">
           <div className="mb-4 text-center sm:mb-6 md:mb-8">
             <h3
               className={`${cinzel.className} mb-1.5 font-semibold sm:mb-2 ${sectionType.subheader}`}
@@ -425,7 +425,7 @@ export function Messages() {
           </div>
 
           <MessageWallDisplay messages={messages} loading={loading} />
-        </div>
+        </div> */}
       </div>
     </section>
     </div>

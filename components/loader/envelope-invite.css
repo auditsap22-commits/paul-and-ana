@@ -1,28 +1,28 @@
 /* ── Design tokens ── */
 .env-invite-screen {
-  /* Envelope — forest olive paper (matches motif / reference) */
-  --env-envelope: #5C6E46;
-  --env-base: #556843;
-  --env-highlight: #677A52;
-  --env-shadow: #465536;
-  --env-fold: #4E613C;
+  /* Envelope — pale champagne gold paper */
+  --env-envelope: #E2D78C;
+  --env-base: #D4C478;
+  --env-highlight: #EDE4A8;
+  --env-shadow: #C4B56E;
+  --env-fold: #B8A862;
 
   /* UI + surfaces — from globals / loading palette */
   --env-ui-brand: var(--color-motif-deep);
   --env-ui-accent: var(--color-motif-accent);
   --env-text: var(--color-welcome-text);
   --env-text-soft: var(--color-welcome-text-soft);
-  --env-wax: #C5D45C;
-  --env-seal-light: #E7F08A;
-  --env-seal-gold: #C8D65E;
-  --env-seal-mid: #A9BB48;
-  --env-seal-deep: #87983A;
-  --env-seal-shadow: #5A6828;
+  --env-wax: #D4AF37;
+  --env-seal-light: #F0E088;
+  --env-seal-gold: #D4AF37;
+  --env-seal-mid: #C19B2E;
+  --env-seal-deep: #A88628;
+  --env-seal-shadow: #8A6F20;
   --env-paper: var(--color-motif-cream);
   --env-gold: #EEC853;
   --env-ivory: #5C6E46;
-  --env-border: color-mix(in srgb, var(--env-shadow) 28%, transparent);
-  --env-border-soft: color-mix(in srgb, var(--env-ui-accent) 28%, transparent);
+  --env-border: color-mix(in srgb, var(--env-shadow) 32%, transparent);
+  --env-border-soft: color-mix(in srgb, var(--env-seal-deep) 24%, transparent);
 
   /*
     Physical stack (always):
@@ -1734,6 +1734,43 @@
 
   .env-invite-photos-emerge .env-invite-polaroid--right {
     right: 2%;
+  }
+
+  .env-invite-polaroid--envelope-pair {
+    padding: 4px 4px 6px;
+    width: clamp(84px, calc(var(--env-width) * 0.34), 148px);
+    border-radius: 2px;
+  }
+
+  .env-invite-polaroid--envelope-pair::after {
+    display: none;
+  }
+
+  .env-invite-polaroid--envelope-pair .env-invite-polaroid-photo {
+    height: clamp(124px, calc(var(--env-width) * 0.5), 210px);
+    aspect-ratio: 736 / 1308;
+  }
+
+  .env-invite-polaroid--envelope-pair .env-invite-polaroid-img {
+    object-position: center 20%;
+  }
+
+  .env-invite-polaroid--envelope-pair.env-invite-polaroid--left .env-invite-polaroid-img {
+    object-position: 54% 20%;
+  }
+
+  .env-invite-polaroid--envelope-pair.env-invite-polaroid--right .env-invite-polaroid-img {
+    object-position: 46% 20%;
+  }
+
+  .env-invite-photos-emerge .env-invite-polaroid--envelope-pair.env-invite-polaroid--left {
+    left: 0%;
+    bottom: 31%;
+  }
+
+  .env-invite-photos-emerge .env-invite-polaroid--envelope-pair.env-invite-polaroid--right {
+    right: 0%;
+    bottom: 31%;
   }
 }
 

@@ -935,7 +935,7 @@ export function Entourage() {
                         </div>
                       )}
                       <div className="mb-2 sm:mb-2.5 md:mb-3">
-                        <SectionTitle>Flower Ladies</SectionTitle>
+                        <SectionTitle>Flower Girls</SectionTitle>
                         <div className="max-w-sm mx-auto flex flex-col items-center gap-1 sm:gap-1.5 md:gap-2">
                           {members.map((member, idx) => (
                             <NameItem

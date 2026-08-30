@@ -133,7 +133,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   width: min(34rem, 100%);
   height: 100%;
   padding:
@@ -142,6 +142,68 @@
     max(1.5rem, calc(1.15rem + env(safe-area-inset-bottom, 0px)));
   pointer-events: none;
   text-align: center;
+}
+
+.loading-screen__verse {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 28rem;
+  margin: 0;
+}
+
+.loading-screen__verse-ref {
+  margin: 0;
+  font-size: clamp(0.78rem, 3.4vw, 1rem);
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ls-butter);
+  text-shadow: 0 1px 12px rgb(26 32 18 / 55%);
+}
+
+.loading-screen__verse-text {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 1.35rem 1.65rem 1.5rem;
+}
+
+.loading-screen__verse-text p {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  padding: 0 0.35rem;
+  font-size: clamp(1.15rem, 5.2vw, 1.72rem);
+  line-height: 1.58;
+  color: var(--ls-cream);
+  text-shadow: 0 2px 16px rgb(26 32 18 / 62%);
+}
+
+.loading-screen__quote-mark {
+  position: absolute;
+  font-family: "Goudy Old Style", "Goudy Bookletter 1911", Georgia, serif;
+  font-size: clamp(2.75rem, 11vw, 4.25rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--ls-mustard);
+  opacity: 0.72;
+  text-shadow: 0 2px 12px rgb(26 32 18 / 45%);
+  pointer-events: none;
+  user-select: none;
+}
+
+.loading-screen__quote-mark--open {
+  top: -0.35rem;
+  left: 0.15rem;
+}
+
+.loading-screen__quote-mark--close {
+  right: 0.2rem;
+  bottom: -0.65rem;
 }
 
 .loading-screen__invite {
@@ -408,37 +470,37 @@
       max(1.75rem, calc(1.35rem + env(safe-area-inset-bottom, 0px)));
   }
 
-  .loading-screen__eyebrow {
-    font-size: 0.86rem;
-    letter-spacing: 0.22em;
+  .loading-screen__verse {
+    max-width: 32rem;
   }
 
-  .loading-screen__kicker {
-    font-size: 0.8rem;
-    letter-spacing: 0.18em;
+  .loading-screen__verse-ref {
+    font-size: 0.94rem;
+    letter-spacing: 0.24em;
   }
 
-  .loading-screen__names {
-    max-width: 26rem;
+  .loading-screen__verse-text {
+    padding: 1.5rem 2rem 1.65rem;
   }
 
-  .loading-screen__date {
-    font-size: 1.2rem;
-    letter-spacing: 0.18em;
+  .loading-screen__verse-text p {
+    font-size: 1.78rem;
+    line-height: 1.62;
+    padding-inline: 0.5rem;
   }
 
-  .loading-screen__ceremony-meta {
-    font-size: 0.86rem;
-    letter-spacing: 0.14em;
+  .loading-screen__quote-mark {
+    font-size: 4.5rem;
   }
 
-  .loading-screen__status-line {
-    font-size: 0.78rem;
-    letter-spacing: 0.14em;
+  .loading-screen__quote-mark--open {
+    top: -0.45rem;
+    left: 0.35rem;
   }
 
-  .loading-screen__track {
-    width: min(42%, 7.5rem);
+  .loading-screen__quote-mark--close {
+    right: 0.45rem;
+    bottom: -0.75rem;
   }
 }
 
@@ -456,57 +518,22 @@
       max(0.85rem, env(safe-area-inset-bottom, 0px));
   }
 
-  .loading-screen__eyebrow {
-    font-size: clamp(0.62rem, 2.9vw, 0.72rem);
-    letter-spacing: 0.16em;
-  }
-
-  .loading-screen__kicker {
-    font-size: 0.62rem;
-    margin: 0.28rem 0 0.4rem;
-  }
-
-  .loading-screen__rule {
-    width: 2.5rem;
-    margin: 0.5rem 0 0.55rem;
-  }
-
-  .loading-screen__weekday {
-    font-size: 0.66rem;
+  .loading-screen__verse-ref {
+    font-size: clamp(0.68rem, 3vw, 0.78rem);
     letter-spacing: 0.18em;
   }
 
-  .loading-screen__date {
-    font-size: 0.92rem;
-    letter-spacing: 0.14em;
+  .loading-screen__verse-text {
+    padding: 1.1rem 1.15rem 1.25rem;
   }
 
-  .loading-screen__ceremony {
-    margin-top: 0.55rem;
-    gap: 0.2rem;
+  .loading-screen__verse-text p {
+    font-size: clamp(1.05rem, 4.8vw, 1.22rem);
+    line-height: 1.52;
   }
 
-  .loading-screen__ceremony-label {
-    font-size: 0.58rem;
-  }
-
-  .loading-screen__ceremony-meta {
-    font-size: 0.68rem;
-    letter-spacing: 0.1em;
-  }
-
-  .loading-screen__status {
-    margin-bottom: 0.35rem;
-  }
-
-  .loading-screen__status-line {
-    font-size: clamp(0.58rem, 2.7vw, 0.68rem);
-    letter-spacing: 0.1em;
-  }
-
-  .loading-screen__track {
-    width: min(62%, 6.5rem);
-    height: 2.5px;
+  .loading-screen__quote-mark {
+    font-size: clamp(2.35rem, 10vw, 3.15rem);
   }
 }
 

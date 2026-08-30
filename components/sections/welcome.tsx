@@ -48,45 +48,6 @@ function OrnamentalDivider({ compact = false }: { compact?: boolean }) {
   )
 }
 
-function CoupleLabel({ groom, bride }: { groom: string; bride: string }) {
-  const lineStyle = {
-    background:
-      "linear-gradient(to right, transparent, color-mix(in srgb, var(--color-welcome-navy) 35%, transparent))",
-  }
-
-  return (
-    <div className="flex items-center justify-center gap-2.5 pt-1 sm:gap-3.5 sm:pt-1.5">
-      <span className="h-px w-5 sm:w-7 md:w-9" style={lineStyle} aria-hidden />
-      <p
-        className={`${cinzel.className} ${sectionType.label} shrink-0 py-0.5 font-semibold uppercase leading-normal tracking-[0.34em] min-[400px]:tracking-[0.38em] sm:tracking-[0.44em]`}
-        style={{ color: "var(--color-welcome-navy)" }}
-      >
-        {groom}
-        <span
-          className={`${aboveTheBeyond.className} mx-1.5 inline-block normal-case tracking-normal sm:mx-2`}
-          style={{
-            fontSize: "1.35em",
-            color: "var(--color-welcome-green)",
-            verticalAlign: "middle",
-          }}
-          aria-hidden
-        >
-          &
-        </span>
-        {bride}
-      </p>
-      <span
-        className="h-px w-5 sm:w-7 md:w-9"
-        style={{
-          background:
-            "linear-gradient(to left, transparent, color-mix(in srgb, var(--color-welcome-navy) 35%, transparent))",
-        }}
-        aria-hidden
-      />
-    </div>
-  )
-}
-
 function LayeredWelcomeTitle() {
   return (
     <h2
@@ -166,7 +127,6 @@ export function Welcome() {
 
           {/* Header */}
           <header className="relative overflow-visible space-y-3 px-1 pt-4 pb-6 sm:space-y-3.5 sm:px-2 sm:pt-5 sm:pb-7 md:space-y-4 md:pt-6 md:pb-8">
-            <CoupleLabel groom={groomName} bride={brideName} />
             <LayeredWelcomeTitle />
             <div className="pt-2 sm:pt-2.5">
               <OrnamentalDivider compact />
@@ -182,14 +142,14 @@ export function Welcome() {
                   className={`font-goudy-italic ${sectionType.textSnug}`}
                   style={{ color: "var(--color-welcome-text)" }}
                 >
-                  &ldquo;When the time is right, I , the Lord will make it happen.&rdquo;
+                  &ldquo;He hath made every thing beautiful in His time.&rdquo;
                 </p>
                 <figcaption className="mt-2 sm:mt-2.5">
                   <cite
                     className={`${cinzel.className} ${sectionType.label} not-italic uppercase tracking-[0.2em] sm:tracking-[0.24em]`}
                     style={{ color: "var(--color-welcome-heading)" }}
                   >
-                    Isaiah 60:22
+                    Ecclesiastes 3:11
                   </cite>
                 </figcaption>
               </blockquote>
@@ -218,29 +178,6 @@ export function Welcome() {
 
             {/* Bottom */}
             <div className="space-y-5 pt-1 sm:space-y-6 sm:pt-2 md:space-y-7">
-              {/* <OrnamentalDivider compact /> */}
-
-              {/* Hashtag */}
-              <aside className="px-1 py-1 sm:px-2">
-                <div className="flex flex-col gap-1.5 sm:flex-row sm:items-baseline sm:justify-center sm:gap-2.5">
-                  <p
-                    className={`${cinzel.className} ${sectionType.label} shrink-0 font-semibold uppercase tracking-[0.18em] sm:tracking-[0.22em]`}
-                    style={{ color: "var(--color-welcome-heading)" }}
-                  >
-                    Share in our joy
-                  </p>
-                  <span className="hidden text-motif-deep/30 sm:inline" aria-hidden>
-                    ·
-                  </span>
-                  <p
-                    className={`font-goudy-italic ${sectionType.textSnug}`}
-                    style={{ color: "var(--color-welcome-navy)" }}
-                  >
-                    {siteConfig.snapShare.hashtag.join(" ")}
-                  </p>
-                </div>
-              </aside>
-
               {/* Sign-off */}
               <footer className="space-y-2 px-1 pt-4 pb-2 sm:space-y-2.5 sm:px-2 sm:pt-5 sm:pb-3 md:pt-6 md:pb-4">
                 <p

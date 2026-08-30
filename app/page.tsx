@@ -245,9 +245,8 @@ export default function Home() {
               <WeddingTimeline />
               <Details />
               <Gallery />
-              {/* <VideoMessage /> // Video Message is not available yet
-              <Messages /> */}        
-       
+              <VideoMessage /> 
+              <Messages />       
               {/* <GuestInformation /> */} 
               <GuestList /> 
               {/* <BookOfGuests /> */}
