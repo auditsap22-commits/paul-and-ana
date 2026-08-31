@@ -168,9 +168,9 @@ Now, as they prepare to say yes before God and the people they love most, Cather
     subtitle: "Songs that have been part of our journey together",
     playlistName: "Paul and Ana Wedding",
     embedUrl:
-    //https://open.spotify.com/embed/playlist/6BMbQvAs9Uj24XgPCK7UjQ?utm_source=generator&si=cd41335ebebb4708
-      "https://open.spotify.com/embed/playlist/6BMbQvAs9Uj24XgPCK7UjQ?utm_source=generator&theme=0&si=cd41335ebebb4708",
-    spotifyUrl: "https://open.spotify.com/playlist/6BMbQvAs9Uj24XgPCK7UjQ",
+    //https://open.spotify.com/embed/playlist/2AhKS56CXqBWMYYNrnWrsR?utm_source=generator&si=2beaa29421e94943
+      "https://open.spotify.com/embed/playlist/2AhKS56CXqBWMYYNrnWrsR?utm_source=generator&theme=0&si=2beaa29421e94943",
+    spotifyUrl: "https://open.spotify.com/playlist/2AhKS56CXqBWMYYNrnWrsR",
   },
   snapShare: {
     googleDriveLink:

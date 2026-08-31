@@ -114,13 +114,6 @@ function buildTimelineEvents(siteConfig: SiteConfig): TimelineEvent[] {
       imageSrc: "/weddingtimeline/WeddingCeremony.png",
     },
     {
-      time: "10:00 AM",
-      title: "Photos",
-      location: ceremonyVenue,
-      icon: CameraIcon,
-      imageSrc: "/weddingtimeline/PhotoSession.png",
-    },
-    {
       time: "11:30 AM",
       title: "Departure",
       location: ceremonyVenue,
@@ -397,16 +390,6 @@ function ArrivalIcon(props: React.SVGProps<SVGSVGElement>) {
       <path d="M6 28V14L16 6l10 8v14" />
       <path d="M12 28v-8h8v8" />
       <path d="M16 6v-2" />
-    </svg>
-  )
-}
-
-function CameraIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 32 32" fill="none" stroke={iconStroke} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" {...props}>
-      <rect x="5" y="10" width="22" height="15" rx="2" />
-      <circle cx="16" cy="17.5" r="4.5" />
-      <path d="M12 10 13.5 7h5L20 10" />
     </svg>
   )
 }
