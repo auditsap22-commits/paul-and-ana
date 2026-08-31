@@ -186,6 +186,37 @@ function getFaqItems(siteConfig: SiteConfig): FAQItem[] {
       ),
     },
     {
+      question: "Is there a recommended hotel?",
+      answer: (
+        <>
+          Yes. We recommend Microtel by Wyndham South Forbes near Nuvali, a short drive from both
+          the ceremony and reception. Please see the{" "}
+          <a
+            href="#hotel"
+            className={linkClass}
+            style={{ color: faqPalette.accent }}
+            onClick={(e) => {
+              e.preventDefault()
+              document.getElementById("hotel")?.scrollIntoView({ behavior: "smooth" })
+            }}
+          >
+            Recommended Hotel
+          </a>{" "}
+          section for the map, or{" "}
+          <a
+            href="https://maps.app.goo.gl/qPai4AGyx3uyMBXX6?g_st=ifm"
+            target="_blank"
+            rel="noopener noreferrer"
+            className={linkClass}
+            style={{ color: faqPalette.accent }}
+          >
+            open in Google Maps
+          </a>
+          .
+        </>
+      ),
+    },
+    {
       question: "How do I RSVP?",
       answer: (
         <>

@@ -84,18 +84,18 @@ export const LoadingScreen: React.FC<LoadingScreenProps> = ({ onComplete, onFade
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.85, ease: entryEase, delay: textDelay }}
         >
-          <figcaption className={`loading-screen__verse-ref ${cinzel.className}`}>
-            Ecclesiastes 3:11
-          </figcaption>
           <blockquote className="loading-screen__verse-text font-goudy-italic">
             <span className="loading-screen__quote-mark loading-screen__quote-mark--open" aria-hidden="true">
               &ldquo;
             </span>
-            <p>He hath made every thing beautiful in His time.</p>
+            <p>He has made everything beautiful in His time.</p>
             <span className="loading-screen__quote-mark loading-screen__quote-mark--close" aria-hidden="true">
               &rdquo;
             </span>
           </blockquote>
+          <figcaption className={`loading-screen__verse-ref ${cinzel.className}`}>
+            Ecclesiastes 3:11
+          </figcaption>
         </motion.figure>
       </div>
     </motion.div>

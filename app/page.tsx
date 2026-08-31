@@ -10,7 +10,7 @@ import { WeddingTimeline } from "@/components/sections/wedding-timeline"
 import { Gallery } from "@/components/sections/gallery"
 import { Messages } from "@/components/sections/messages"
 import { Details } from "@/components/sections/details"
-import { Accommodation } from "@/components/sections/accommodation"
+import { RecommendedHotel } from "@/components/sections/recommended-hotel"
 import { Entourage } from "@/components/sections/entourage"
 import { PrincipalSponsors } from "@/components/sections/principal-sponsors"
 import { BookOfGuests } from "@/components/sections/book-of-guests"
@@ -244,6 +244,7 @@ export default function Home() {
               <Entourage />
               <WeddingTimeline />
               <Details />
+              <RecommendedHotel />
               <Gallery />
               <VideoMessage /> 
               <Messages />       

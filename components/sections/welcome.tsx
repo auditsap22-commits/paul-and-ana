@@ -142,7 +142,7 @@ export function Welcome() {
                   className={`font-goudy-italic ${sectionType.textSnug}`}
                   style={{ color: "var(--color-welcome-text)" }}
                 >
-                  &ldquo;He hath made every thing beautiful in His time.&rdquo;
+                  &ldquo;He has made everything beautiful in His time.&rdquo;
                 </p>
                 <figcaption className="mt-2 sm:mt-2.5">
                   <cite

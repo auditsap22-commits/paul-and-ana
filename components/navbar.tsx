@@ -22,7 +22,7 @@ const navLinks = [
   { href: "#gallery", label: "Gallery" },
   { href: "#messages", label: "Messages" },
   { href: "#details", label: "Details" },
-  // { href: "#accommodation", label: "Stay" },
+  { href: "#hotel", label: "Stay" },
   { href: "#entourage", label: "Entourage" },
   { href: "#sponsors", label: "Sponsors" },
   { href: "#guest-list", label: "RSVP" },

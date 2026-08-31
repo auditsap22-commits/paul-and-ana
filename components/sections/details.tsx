@@ -160,7 +160,6 @@ const ct = {
 const guestDressCodePalette = [
   "#587042",
   "#A9B494",
-  "#FAF7E6",
   "#F8DE8C",
   "#F6C531",
 ] as const
@@ -648,10 +647,10 @@ export function Details() {
             style={cardStyle}
           >
             <Image
-              src="/Details/dresscode.png"
+              src="/decoration/attireguide.png"
               alt="Dress code for Principal Sponsors and Guests"
               width={1305}
-              height={1205}
+              height={1206}
               className="h-auto w-full"
               sizes="(max-width: 768px) 100vw, (max-width: 1280px) 80vw, 896px"
             />

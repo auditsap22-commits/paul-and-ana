@@ -100,11 +100,32 @@ function buildTimelineEvents(siteConfig: SiteConfig): TimelineEvent[] {
 
   return [
     {
-      time: "11:30 AM",
-      title: "Departure from St. Benedict",
+      time: "8:30 AM",
+      title: "Arrival",
       location: ceremonyVenue,
-      icon: GuestsIcon,
-      imageSrc: "/weddingtimeline/arrivalimage.png",
+      icon: ArrivalIcon,
+      imageSrc: "/weddingtimeline/arrival.png",
+    },
+    {
+      time: "9:00 AM",
+      title: "Wedding Ceremony",
+      location: ceremonyVenue,
+      icon: RingsIcon,
+      imageSrc: "/weddingtimeline/WeddingCeremony.png",
+    },
+    {
+      time: "10:00 AM",
+      title: "Photos",
+      location: ceremonyVenue,
+      icon: CameraIcon,
+      imageSrc: "/weddingtimeline/PhotoSession.png",
+    },
+    {
+      time: "11:30 AM",
+      title: "Departure",
+      location: ceremonyVenue,
+      icon: DepartureIcon,
+      imageSrc: "/weddingtimeline/SendOff.png",
     },
     {
       time: "12:00 PM",
@@ -132,7 +153,7 @@ function buildTimelineEvents(siteConfig: SiteConfig): TimelineEvent[] {
       title: "End of Program",
       location: receptionVenue,
       icon: DanceIcon,
-      imageSrc: "/weddingtimeline/SendOff.png",
+      imageSrc: "/weddingtimeline/dance.png",
     },
   ]
 }
@@ -370,13 +391,44 @@ function IconMark({
 
 const iconStroke = TIMELINE_SVG_STROKE
 
-function GuestsIcon(props: React.SVGProps<SVGSVGElement>) {
+function ArrivalIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 32 32" fill="none" stroke={iconStroke} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" {...props}>
-      <path d="M11 16a4 4 0 1 0-4-4 4 4 0 0 0 4 4Z" />
-      <path d="M21 16a3.5 3.5 0 1 0-3.5-3.5A3.5 3.5 0 0 0 21 16Z" />
-      <path d="M4 24.5c1.2-3 3.9-4.5 7-4.5s5.8 1.5 7 4.5" />
-      <path d="M17.5 19.5A6 6 0 0 1 26 24" />
+      <path d="M6 28V14L16 6l10 8v14" />
+      <path d="M12 28v-8h8v8" />
+      <path d="M16 6v-2" />
+    </svg>
+  )
+}
+
+function CameraIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 32 32" fill="none" stroke={iconStroke} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <rect x="5" y="10" width="22" height="15" rx="2" />
+      <circle cx="16" cy="17.5" r="4.5" />
+      <path d="M12 10 13.5 7h5L20 10" />
+    </svg>
+  )
+}
+
+function DepartureIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 32 32" fill="none" stroke={iconStroke} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <path d="M5 20h18l4-6H11l-2 3H5v3Z" />
+      <circle cx="11" cy="23" r="2" />
+      <circle cx="21" cy="23" r="2" />
+      <path d="M5 20v3h3" />
+    </svg>
+  )
+}
+
+function RingsIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 32 32" fill="none" stroke={iconStroke} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" {...props}>
+      <circle cx="12" cy="20" r="6" />
+      <circle cx="20" cy="20" r="6" />
+      <path d="M14 9 16 5l2 4" />
+      <path d="M13 7h6" />
     </svg>
   )
 }

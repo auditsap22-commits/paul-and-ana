@@ -205,6 +205,7 @@ export function Footer() {
       [
         { label: "Home", href: "#home" },
         { label: "Events", href: "#details" },
+        { label: "Stay", href: "#hotel" },
         { label: "RSVP", href: "#guest-list" },
         { label: "Messages", href: "#messages" },
       ] as const,
