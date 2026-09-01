@@ -22,7 +22,9 @@ export const siteConfig = {
     proposalResponses: "https://script.google.com/macros/s/AKfycbwIUDKMoMIHVwbmr6KbgmBtlGRpMGj1Z9maeHSEwsFaXNi0dAH8WYhqbtiAfg_p5D4lgw/exec", // uses entourage script with action: proposal
     weddingDetails: "https://script.google.com/macros/s/AKfycbx7sz1e2uoVjfrSOGuHXwHSbM7Fa4b6_vyMFnBXaZogdw1QzfxIvqrLbQPvoJIsxl7_/exec",   //done
 ////google share 
-    googleShare: "https://docs.google.com/spreadsheets/d/1J7mR98rWgWTUuyznyH2KFltoE2U5n4JrAcf-cVXbqsQ/edit?usp=sharing", 
+    googleShare: "https://docs.google.com/spreadsheets/d/1J7mR98rWgWTUuyznyH2KFltoE2U5n4JrAcf-cVXbqsQ/edit?usp=sharing",
+    videoMessageForm:
+      "https://docs.google.com/forms/d/e/1FAIpQLSfeGlEl4CMXWefdvCw6AOPHFS1ROku_rs-Gbofa2LkVJ0sLGQ/viewform", 
   },
   wedding: {
     date: "November 6, 2026",
